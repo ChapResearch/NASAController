@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Switch ad_switch = findViewById(R.id.advert_switch);
-        ad_switch.setOnClickListener(new View.OnClickListener() {
+        /*ad_switch.setOnClickListener(new View.OnClickListener() {
             BluetoothLeAdvertiser advertiser = BluetoothAdapter.getDefaultAdapter().getBluetoothLeAdvertiser();
             AdvertiseSettings settings = new AdvertiseSettings.Builder()
                     .setAdvertiseMode( AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY )
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
                     .addServiceData( pUuid, "Data".getBytes( Charset.forName( "UTF-8" ) ) )
                     .build();
             }
-        });
+        });*/
     }
 
     public boolean toBoolean(String torf){

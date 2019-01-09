@@ -67,13 +67,28 @@
         android:layout_width="107dp"
         android:layout_height="47dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginRight="18dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Match #"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/footer_background" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="107dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Password"
+        app:layout_constraintBottom_toBottomOf="@+id/footer_background"
+        app:layout_constraintEnd_toStartOf="@+id/matchNum_field"
+        app:layout_constraintStart_toEndOf="@+id/advert_switch"
         app:layout_constraintTop_toTopOf="@+id/footer_background" />
 
     <TableRow
@@ -101,6 +116,15 @@
             tools:padding="5dp" />
 
         <TextView
+            android:id="@+id/F_name"
+            android:layout_width="87dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:padding="5dp"
+            android:text="Name" />
+
+        <TextView
             android:id="@+id/F_teamNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -115,15 +139,6 @@
             android:layout_height="39dp"
             android:layout_margin="15dp"
             app:srcCompat="@android:drawable/btn_star_big_off" />
-
-        <TextView
-            android:id="@+id/F_updateText"
-            android:layout_width="87dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:text="Last sent" />
 
         <ImageView
             android:id="@+id/F_color"
@@ -169,6 +184,15 @@
             tools:padding="5dp" />
 
         <TextView
+            android:id="@+id/A_name"
+            android:layout_width="86dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:padding="5dp"
+            android:text="Name" />
+
+        <TextView
             android:id="@+id/A_teamNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -183,15 +207,6 @@
             android:layout_height="39dp"
             android:layout_margin="15dp"
             app:srcCompat="@android:drawable/btn_star_big_off" />
-
-        <TextView
-            android:id="@+id/A_updateText"
-            android:layout_width="86dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:text="Last sent" />
 
         <ImageView
             android:id="@+id/A_color"
@@ -236,12 +251,21 @@
             tools:padding="5dp" />
 
         <TextView
+            android:id="@+id/B_name"
+            android:layout_width="86dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:padding="5dp"
+            android:text="Name" />
+
+        <TextView
             android:id="@+id/B_teamNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:text="####"
+            android:text="#####"
             tools:padding="5dp" />
 
         <ImageView
@@ -250,15 +274,6 @@
             android:layout_height="39dp"
             android:layout_margin="15dp"
             app:srcCompat="@android:drawable/btn_star_big_off" />
-
-        <TextView
-            android:id="@+id/B_updateText"
-            android:layout_width="86dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:text="Last sent" />
 
         <ImageView
             android:id="@+id/B_color"
@@ -303,6 +318,15 @@
             tools:padding="5dp" />
 
         <TextView
+            android:id="@+id/C_name"
+            android:layout_width="87dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:padding="5dp"
+            android:text="Name" />
+
+        <TextView
             android:id="@+id/C_teamNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -317,15 +341,6 @@
             android:layout_height="39dp"
             android:layout_margin="15dp"
             app:srcCompat="@android:drawable/btn_star_big_off" />
-
-        <TextView
-            android:id="@+id/C_updateText"
-            android:layout_width="87dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:text="Last sent" />
 
         <ImageView
             android:id="@+id/C_color"
@@ -370,6 +385,15 @@
             tools:padding="5dp" />
 
         <TextView
+            android:id="@+id/D_name"
+            android:layout_width="87dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:padding="5dp"
+            android:text="Name" />
+
+        <TextView
             android:id="@+id/D_teamNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -384,15 +408,6 @@
             android:layout_height="39dp"
             android:layout_margin="15dp"
             app:srcCompat="@android:drawable/btn_star_big_off" />
-
-        <TextView
-            android:id="@+id/D_updateText"
-            android:layout_width="87dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:text="Last sent" />
 
         <ImageView
             android:id="@+id/D_color"
@@ -437,6 +452,15 @@
             tools:padding="5dp" />
 
         <TextView
+            android:id="@+id/E_name"
+            android:layout_width="87dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:padding="5dp"
+            android:text="Name" />
+
+        <TextView
             android:id="@+id/E_teamNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -451,15 +475,6 @@
             android:layout_height="39dp"
             android:layout_margin="15dp"
             app:srcCompat="@android:drawable/btn_star_big_off" />
-
-        <TextView
-            android:id="@+id/E_updateText4"
-            android:layout_width="87dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:text="Last sent" />
 
         <ImageView
             android:id="@+id/E_color"
@@ -478,24 +493,5 @@
             android:text="X"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
     </TableRow>
-
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/myCoordinatorLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <!-- Here are the existing layout elements, now wrapped in
-            a CoordinatorLayout -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <!-- …Toolbar, other layouts, other elements… -->
-
-        </LinearLayout>
-
-    </android.support.design.widget.CoordinatorLayout>
 
 </android.support.constraint.ConstraintLayout>
