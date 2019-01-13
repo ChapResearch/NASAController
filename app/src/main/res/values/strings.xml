@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Controller</string>
+    <string name="ble_uuid">0CF264CE-8981-4702-99D2-08D6136CA423</string>
+    <string name="title_activity_configure">ConfigureActivity</string>
+    <string name="title_activity_config">ConfigActivity</string>
 </resources>

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.support.design.widget.Snackbar;
 import android.widget.Switch;
+import android.widget.Toast;
 import android.bluetooth.le.BluetoothLeAdvertiser;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
@@ -21,7 +22,9 @@ import android.bluetooth.le.AdvertiseData;
 import android.bluetooth.BluetoothDevice;
 import android.util.Log;
 import android.bluetooth.le.AdvertiseSettings;
-//import java.nio.charset.
+import java.nio.charset.Charset;
+import android.content.Intent;
+
 
 
 import android.os.ParcelUuid;
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         //tn-team number c-color s-status
         TextView tn_A = findViewById(R.id.A_teamNumber);
         ImageView c_A = findViewById(R.id.A_color);
@@ -52,10 +56,15 @@ public class MainActivity extends AppCompatActivity {
         ImageView s_E = findViewById(R.id.E_status_image);
         TextView tn_F = findViewById(R.id.F_teamNumber);
         ImageView c_F = findViewById(R.id.F_color);
-        ImageView s_F = findViewById(R.id.E_status_image);
+        ImageView s_F = findViewById(R.id.F_status_image);
 
-
-
+        Button config_button = findViewById(R.id.config_button);
+        config_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ConfigActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //Sample Data in array format
         String[] data_arr={"2468","t","t","1489","t","f","2584","f","t","2568","f","f","5628","t","f","4321","f","t"};
@@ -131,35 +140,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Match Num Field
-        final Button upbutton = findViewById(R.id.upload_button);
-        upbutton.setOnClickListener(new View.OnClickListener() {
+        final Button uploadbutton = findViewById(R.id.upload_button);
+        uploadbutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final EditText matchnum = findViewById(R.id.matchNum_field);
-                String num = "Match Num: " + matchnum.getText().toString();
-                final Snackbar mySnackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), num,
-                        Snackbar.LENGTH_SHORT);
-                mySnackbar.show();
+                //final EditText matchnum = findViewById(R.id.matchNum_field);
+                //String num = "Match Num: " + matchnum.getText().toString();
+                //final Snackbar mySnackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), num,
+                        //Snackbar.LENGTH_SHORT);
+               // mySnackbar.show();
             }
         });
 
         Switch ad_switch = findViewById(R.id.advert_switch);
-        /*ad_switch.setOnClickListener(new View.OnClickListener() {
-            BluetoothLeAdvertiser advertiser = BluetoothAdapter.getDefaultAdapter().getBluetoothLeAdvertiser();
-            AdvertiseSettings settings = new AdvertiseSettings.Builder()
-                    .setAdvertiseMode( AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY )
-                    .setTxPowerLevel( AdvertiseSettings.ADVERTISE_TX_POWER_HIGH )
-                    .setConnectable( false )
-                    .build();
+        //ad_switch.setOnClickListener(this);
 
-            ParcelUuid pUuid = new ParcelUuid( UUID.fromString( getString( R.string.ble_uuid ) ) );
 
-            AdvertiseData data = new AdvertiseData.Builder()
-                    .setIncludeDeviceName( true )
-                    .addServiceUuid( pUuid )
-                    .addServiceData( pUuid, "Data".getBytes( Charset.forName( "UTF-8" ) ) )
-                    .build();
-            }
-        });*/
     }
 
     public boolean toBoolean(String torf){
