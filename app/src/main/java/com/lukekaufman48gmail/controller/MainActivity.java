@@ -1,6 +1,8 @@
 package com.lukekaufman48gmail.controller;
 
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.widget.TableRow;
 import android.view.View;
@@ -11,27 +13,19 @@ import android.widget.EditText;
 import android.support.design.widget.Snackbar;
 import android.widget.Switch;
 import android.widget.Toast;
-import android.bluetooth.le.BluetoothLeAdvertiser;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothManager;
-import android.bluetooth.le.AdvertiseCallback;
-import android.bluetooth.le.AdvertisingSetParameters;
-import android.bluetooth.le.AdvertisingSet;
-import android.bluetooth.le.AdvertisingSetCallback;
-import android.bluetooth.le.AdvertiseData;
-import android.bluetooth.BluetoothDevice;
-import android.util.Log;
-import android.bluetooth.le.AdvertiseSettings;
-import java.nio.charset.Charset;
-import android.content.Intent;
-
-
+import android.graphics.Color;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.app.FragmentManager;
 
 import android.os.ParcelUuid;
 import java.util.*;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
+
+    Switch onSwitch;
+    NASA_BLE ble;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,20 +52,23 @@ public class MainActivity extends AppCompatActivity {
         ImageView c_F = findViewById(R.id.F_color);
         ImageView s_F = findViewById(R.id.F_status_image);
 
+        //Config Activity
+
         Button config_button = findViewById(R.id.config_button);
         config_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ConfigActivity.class);
-                startActivity(intent);
+                loadFragment(new ConfigFragment());
             }
         });
 
+
+
         //Sample Data in array format
-        String[] data_arr={"2468","t","t","1489","t","f","2584","f","t","2568","f","f","5628","t","f","4321","f","t"};
+        String[] data_arr = {"2468", "t", "t", "1489", "t", "f", "2584", "f", "t", "2568", "f", "f", "5628", "t", "f", "4321", "f", "t"};
 
         String[][] data_mat = new String[6][3];
-        int i=0;
-        for(int r=0;r<6;r++) {
+        int i = 0;
+        for (int r = 0; r < 6; r++) {
             for (int c = 0; c < 3; c++) {
                 data_mat[r][c] = data_arr[i];
                 i++;
@@ -131,8 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Contributor F
         final ContributorF instance_F = new ContributorF(data_mat[5][0], toBoolean(data_mat[5][1]), toBoolean(data_mat[5][2]), this, tn_F, c_F, s_F);
-        instance_F.UpdateDisplay();
-        final Button buttonF = findViewById(R.id.F_Xbutton);
+        instance_F.UpdateDisplay();final Button buttonF = findViewById(R.id.F_Xbutton);
         buttonF.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 instance_F.ClearDisplay();
@@ -146,8 +142,8 @@ public class MainActivity extends AppCompatActivity {
                 //final EditText matchnum = findViewById(R.id.matchNum_field);
                 //String num = "Match Num: " + matchnum.getText().toString();
                 //final Snackbar mySnackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), num,
-                        //Snackbar.LENGTH_SHORT);
-               // mySnackbar.show();
+                //Snackbar.LENGTH_SHORT);
+                // mySnackbar.show();
             }
         });
 
@@ -156,13 +152,181 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    private void loadFragment(Fragment fragment) {
+// create a FragmentManager
+        FragmentManager fm = getFragmentManager();
+// create a FragmentTransaction to begin the transaction and replace the Fragment
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+// replace the FrameLayout with new Fragment
+        fragmentTransaction.replace(R.id.ContributorLayout, fragment);
+        fragmentTransaction.commit(); // save the changes
+    }
 
-    public boolean toBoolean(String torf){
-        if(torf.equals("t"))
+    public boolean toBoolean(String torf) {
+        if (torf.equals("t"))
             return true;
-        else if(torf.equals("f"))
+        else if (torf.equals("f"))
             return false;
         else
             return true;
     }
+
+
+    private final NASA_BLE_Interface bleCallbacks = new NASA_BLE_Interface() {
+
+
+
+        @Override
+        public String NASA_controllerName() {
+
+            // TODO - these should access some UI component for the name of the controller
+            //       or even go find the bluetooth name
+            TextView controllerName = findViewById(R.id.controllerName_field);
+
+
+            return (controllerName.getText().toString());
+        }
+
+        @Override
+        public String NASA_password() {
+
+            // TODO - these should access some UI component for the password
+            TextView password = findViewById(R.id.password_field);
+
+            return (password.getText().toString());
+        }
+
+        @Override
+        public void NASA_slotChange(int slot, boolean claimed) {
+            ImageView indicator = null;
+
+            switch (slot) {
+                case 0:
+                    indicator = findViewById(R.id.A_status_image);
+                    break;
+                case 1:
+                    indicator = findViewById(R.id.B_status_image);
+                    break;
+                case 2:
+                    indicator = findViewById(R.id.C_status_image);
+                    break;
+                case 3:
+                    indicator = findViewById(R.id.D_status_image);
+                    break;
+                case 4:
+                    indicator = findViewById(R.id.E_status_image);
+                    break;
+                case 5:
+                    indicator = findViewById(R.id.F_status_image);
+                    break;
+            }
+            int id = getResources().getIdentifier("com.lukekaufman48gmail.controller:drawable/" + "on_star.png", null, null);
+            if (claimed)
+                indicator.setImageResource(id);
+        }
+
+        @Override
+        public void NASA_teamColor(int slot, int givenColor)    // 0x00 gray, 0x01 blue, 0x02 red, else gray
+        {
+            ImageView teamColor;
+            switch (slot) {
+                default:
+                case 0:
+                    teamColor = findViewById(R.id.A_color);
+                    break;
+                case 1:
+                    teamColor = findViewById(R.id.B_color);
+                    break;
+                case 2:
+                    teamColor = findViewById(R.id.C_color);
+                    break;
+                case 3:
+                    teamColor = findViewById(R.id.D_color);
+                    break;
+                case 4:
+                    teamColor = findViewById(R.id.E_color);
+                    break;
+                case 5:
+                    teamColor = findViewById(R.id.F_color);
+                    break;
+            }
+
+            int color;
+            switch (givenColor) {
+                case 1:
+                    color = Color.BLUE;
+                    break;
+                case 2:
+                    color = Color.RED;
+                    break;
+                default:
+                    color = Color.LTGRAY;
+                    break;
+            }
+
+            teamColor.setBackgroundColor(color);
+        }
+
+        @Override
+        public void NASA_teamNumber(int slot, String number) {
+            TextView team;
+            switch (slot) {
+                default:
+                case 0:
+                    team = (TextView) findViewById(R.id.A_teamNumber);
+                    break;
+                case 1:
+                    team = (TextView) findViewById(R.id.B_teamNumber);
+                    break;
+                case 2:
+                    team = (TextView) findViewById(R.id.C_teamNumber);
+                    break;
+                case 3:
+                    team = (TextView) findViewById(R.id.D_teamNumber);
+                    break;
+                case 4:
+                    team = (TextView) findViewById(R.id.E_teamNumber);
+                    break;
+                case 5:
+                    team = (TextView) findViewById(R.id.F_teamNumber);
+                    break;
+            }
+            team.setText(number);
+        }
+
+        @Override
+        public void NASA_dataTransmission(int slot, String jsonData) {
+
+        }
+
+        @Override
+        public void NASA_contributorName(int slot, String contributorName) {
+            TextView name;
+            switch (slot) {
+                default:
+                case 0:
+                    name = findViewById(R.id.A_name);
+                    break;
+                case 1:
+                    name = findViewById(R.id.B_name);
+                    break;
+                case 2:
+                    name = findViewById(R.id.C_name);
+                    break;
+                case 3:
+                    name = findViewById(R.id.D_name);
+                    break;
+                case 4:
+                    name = findViewById(R.id.E_name);
+                    break;
+                case 5:
+                    name = findViewById(R.id.F_name);
+                    break;
+            }
+            name.setText(contributorName);
+        }
+
+
+    };
+
 }

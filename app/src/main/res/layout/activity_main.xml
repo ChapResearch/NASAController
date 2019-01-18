@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/config_button"
+        android:layout_width="105dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:text="CONFIGURE"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/frc_logo" />
+
     <ImageView
         android:id="@+id/header_background"
         android:layout_width="1000dp"
@@ -15,20 +24,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@color/colorPrimary" />
-
-    <Button
-        android:id="@+id/config_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="CONFIGURE"
-        app:layout_constraintBottom_toBottomOf="@+id/frc_logo"
-        app:layout_constraintEnd_toStartOf="@+id/frc_logo"
-        app:layout_constraintStart_toEndOf="@+id/upload_button"
-        app:layout_constraintTop_toTopOf="@+id/frc_logo"
-        app:layout_constraintVertical_bias="0.545" />
 
     <ImageView
         android:id="@+id/frc_logo"
@@ -49,32 +44,19 @@
         android:layout_height="65dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@color/colorPrimary" />
-
-    <Switch
-        android:id="@+id/advert_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="8dp"
-        android:text="Advertising "
-        app:layout_constraintBottom_toBottomOf="@+id/footer_background"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/footer_background" />
 
     <Button
         android:id="@+id/upload_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="8dp"
         android:text="UPLOAD"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/footer_background" />
 
     <TableRow
         android:id="@+id/Contributor_F_display"
@@ -478,5 +460,26 @@
             android:text="X"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
     </TableRow>
+
+    <EditText
+        android:id="@+id/matchNum_field"
+        android:layout_width="105dp"
+        android:layout_height="42dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginStart="30dp"
+        android:ems="10"
+        android:hint="Match Num"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/main_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="MAin"
+        app:layout_constraintStart_toEndOf="@+id/config_button"
+        app:layout_constraintTop_toTopOf="@+id/frc_logo" />
 
 </android.support.constraint.ConstraintLayout>

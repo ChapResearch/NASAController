@@ -71,8 +71,7 @@ public class ContributorA extends Activity {
 
         //changed
 
-            if(this.changed)
-                this.data_status.setImageResource(R.drawable.frc_logo);
+
 
         // * turn off if slot empty turn on if filled
         // * update time
