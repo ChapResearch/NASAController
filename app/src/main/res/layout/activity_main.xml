@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/main_view"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".MainActivity">
+
+    <fragment
+        android:id="@+id/fragment_place"
+        android:name="com.lukekaufman48gmail.controller.BlankFragment"
+        android:layout_width="0dp"
+        android:layout_height="541dp"
+        app:layout_constraintBottom_toTopOf="@+id/footer_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frc_logo"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/config_button"
-        android:layout_width="105dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:text="CONFIGURE"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/frc_logo" />
+        android:layout_width="74dp"
+        android:layout_height="49dp"
+        android:text="Config"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="1dp" />
 
     <ImageView
         android:id="@+id/header_background"
@@ -24,6 +37,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@color/colorPrimary" />
+
+    <Button
+        android:id="@+id/main_button"
+        android:layout_width="65dp"
+        android:layout_height="49dp"
+        android:text="Main"
+        tools:layout_editor_absoluteX="74dp"
+        tools:layout_editor_absoluteY="1dp" />
 
     <ImageView
         android:id="@+id/frc_logo"
@@ -37,6 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/frc_logo" />
+
 
     <ImageView
         android:id="@+id/footer_background"
@@ -58,428 +80,44 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/footer_background" />
 
-    <TableRow
-        android:id="@+id/Contributor_F_display"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="13dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:background="#e2e2e2"
-        app:layout_constraintBottom_toTopOf="@+id/footer_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/f"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            android:text="F"
-            tools:padding="5dp" />
-
-        <TextView
-            android:id="@+id/F_name"
-            android:layout_width="87dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:text="Name" />
-
-        <TextView
-            android:id="@+id/F_teamNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:text="#####"
-            tools:padding="5dp" />
-
-        <ImageView
-            android:id="@+id/F_status_image"
-            android:layout_width="41dp"
-            android:layout_height="39dp"
-            android:layout_margin="15dp"
-            app:srcCompat="@android:drawable/btn_star_big_off" />
-
-        <ImageView
-            android:id="@+id/F_color"
-            android:layout_width="41dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            app:srcCompat="@android:color/holo_purple" />
-
-        <Button
-            android:id="@+id/F_Xbutton"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:text="X"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/Contributor_A_display"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="13dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:background="#e2e2e2"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/Contributor_B_display"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/A"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            android:text="A"
-            tools:padding="5dp" />
-
-        <TextView
-            android:id="@+id/A_name"
-            android:layout_width="86dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:text="Name" />
-
-        <TextView
-            android:id="@+id/A_teamNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:text="#####"
-            tools:padding="5dp" />
-
-        <ImageView
-            android:id="@+id/A_status_image"
-            android:layout_width="41dp"
-            android:layout_height="39dp"
-            android:layout_margin="15dp"
-            app:srcCompat="@android:drawable/btn_star_big_off" />
-
-        <ImageView
-            android:id="@+id/A_color"
-            android:layout_width="41dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            app:srcCompat="@android:color/holo_purple" />
-
-        <Button
-            android:id="@+id/A_Xbutton"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:text="X"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/Contributor_B_display"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="13dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:background="#e2e2e2"
-        app:layout_constraintBottom_toTopOf="@+id/Contributor_C_display"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/b"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            android:text="B"
-            tools:padding="5dp" />
-
-        <TextView
-            android:id="@+id/B_name"
-            android:layout_width="86dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:text="Name" />
-
-        <TextView
-            android:id="@+id/B_teamNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:text="#####"
-            tools:padding="5dp" />
-
-        <ImageView
-            android:id="@+id/B_status_image"
-            android:layout_width="41dp"
-            android:layout_height="39dp"
-            android:layout_margin="15dp"
-            app:srcCompat="@android:drawable/btn_star_big_off" />
-
-        <ImageView
-            android:id="@+id/B_color"
-            android:layout_width="41dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            app:srcCompat="@android:color/holo_purple" />
-
-        <Button
-            android:id="@+id/B_Xbutton"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:text="X"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/Contributor_C_display"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="13dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:background="#e2e2e2"
-        app:layout_constraintBottom_toTopOf="@+id/Contributor_D_display"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/c"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            android:text="C"
-            tools:padding="5dp" />
-
-        <TextView
-            android:id="@+id/C_name"
-            android:layout_width="87dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:text="Name" />
-
-        <TextView
-            android:id="@+id/C_teamNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:text="#####"
-            tools:padding="5dp" />
-
-        <ImageView
-            android:id="@+id/C_status_image"
-            android:layout_width="41dp"
-            android:layout_height="39dp"
-            android:layout_margin="15dp"
-            app:srcCompat="@android:drawable/btn_star_big_off" />
-
-        <ImageView
-            android:id="@+id/C_color"
-            android:layout_width="41dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            app:srcCompat="@android:color/holo_purple" />
-
-        <Button
-            android:id="@+id/C_Xbutton"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:text="X"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/Contributor_D_display"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="13dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:background="#e2e2e2"
-        app:layout_constraintBottom_toTopOf="@+id/Contributor_E_display"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/d"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            android:text="D"
-            tools:padding="5dp" />
-
-        <TextView
-            android:id="@+id/D_name"
-            android:layout_width="87dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:text="Name" />
-
-        <TextView
-            android:id="@+id/D_teamNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:text="#####"
-            tools:padding="5dp" />
-
-        <ImageView
-            android:id="@+id/D_status_image"
-            android:layout_width="41dp"
-            android:layout_height="39dp"
-            android:layout_margin="15dp"
-            app:srcCompat="@android:drawable/btn_star_big_off" />
-
-        <ImageView
-            android:id="@+id/D_color"
-            android:layout_width="41dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            app:srcCompat="@android:color/holo_purple" />
-
-        <Button
-            android:id="@+id/D_Xbutton"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:text="X"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/Contributor_E_display"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="13dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:background="#e2e2e2"
-        app:layout_constraintBottom_toTopOf="@+id/Contributor_F_display"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/e"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            android:text="E"
-            tools:padding="5dp" />
-
-        <TextView
-            android:id="@+id/E_name"
-            android:layout_width="87dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:text="Name" />
-
-        <TextView
-            android:id="@+id/E_teamNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:text="#####"
-            tools:padding="5dp" />
-
-        <ImageView
-            android:id="@+id/E_status_image"
-            android:layout_width="41dp"
-            android:layout_height="39dp"
-            android:layout_margin="15dp"
-            app:srcCompat="@android:drawable/btn_star_big_off" />
-
-        <ImageView
-            android:id="@+id/E_color"
-            android:layout_width="41dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            app:srcCompat="@android:color/holo_purple" />
-
-        <Button
-            android:id="@+id/E_Xbutton"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:text="X"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-    </TableRow>
 
     <EditText
         android:id="@+id/matchNum_field"
-        android:layout_width="105dp"
-        android:layout_height="42dp"
-        android:layout_marginBottom="13dp"
-        android:layout_marginStart="30dp"
+        android:layout_width="77dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Match Num"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:hint="Match #"
+        android:inputType="number"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_place"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="185dp" />
 
     <Button
-        android:id="@+id/main_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="MAin"
-        app:layout_constraintStart_toEndOf="@+id/config_button"
-        app:layout_constraintTop_toTopOf="@+id/frc_logo" />
+        android:id="@+id/button"
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/red"
+        android:elevation="0dp"
+        android:text="-"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_place"
+        app:layout_constraintEnd_toStartOf="@+id/matchNum_field"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/green"
+        android:text="+"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_place"
+        app:layout_constraintStart_toEndOf="@+id/matchNum_field"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

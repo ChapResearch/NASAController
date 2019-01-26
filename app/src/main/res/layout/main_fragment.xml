@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/ContributorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+
+        <TableRow
+            android:id="@+id/Contributor_F_display"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="13dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="463dp"
+            android:background="#e2e2e2"
+            app:layout_constraintBottom_toTopOf="@+id/footer_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.636"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/f"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:text="F"
+                tools:padding="5dp" />
+
+            <TextView
+                android:id="@+id/F_name"
+                android:layout_width="87dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:padding="5dp"
+                android:text="Name" />
+
+            <TextView
+                android:id="@+id/F_teamNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="#####"
+                tools:padding="5dp" />
+
+            <ImageView
+                android:id="@+id/F_status_image"
+                android:layout_width="41dp"
+                android:layout_height="39dp"
+                android:layout_margin="15dp"
+                app:srcCompat="@android:drawable/btn_star_big_off" />
+
+            <ImageView
+                android:id="@+id/F_color"
+                android:layout_width="41dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                app:srcCompat="@android:color/holo_purple" />
+
+            <Button
+                android:id="@+id/F_Xbutton"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:text="X"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+        </TableRow>
+
+    <TableRow
+        android:id="@+id/Contributor_A_display"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="#e2e2e2"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/Contributor_B_display"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.636"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:text="A"
+            tools:padding="5dp" />
+
+        <TextView
+            android:id="@+id/A_name"
+            android:layout_width="86dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:padding="5dp"
+            android:text="Name" />
+
+        <TextView
+            android:id="@+id/A_teamNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="#####"
+            tools:padding="5dp" />
+
+        <ImageView
+            android:id="@+id/A_status_image"
+            android:layout_width="41dp"
+            android:layout_height="39dp"
+            android:layout_margin="15dp"
+            app:srcCompat="@android:drawable/btn_star_big_off" />
+
+        <ImageView
+            android:id="@+id/A_color"
+            android:layout_width="41dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@android:color/holo_purple" />
+
+        <Button
+            android:id="@+id/A_Xbutton"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:text="X"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/Contributor_B_display"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="#e2e2e2"
+        app:layout_constraintBottom_toTopOf="@+id/Contributor_C_display"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.636"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:text="B"
+            tools:padding="5dp" />
+
+        <TextView
+            android:id="@+id/B_name"
+            android:layout_width="86dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:padding="5dp"
+            android:text="Name" />
+
+        <TextView
+            android:id="@+id/B_teamNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="#####"
+            tools:padding="5dp" />
+
+        <ImageView
+            android:id="@+id/B_status_image"
+            android:layout_width="41dp"
+            android:layout_height="39dp"
+            android:layout_margin="15dp"
+            app:srcCompat="@android:drawable/btn_star_big_off" />
+
+        <ImageView
+            android:id="@+id/B_color"
+            android:layout_width="41dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@android:color/holo_purple" />
+
+        <Button
+            android:id="@+id/B_Xbutton"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:text="X"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/Contributor_C_display"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="#e2e2e2"
+        app:layout_constraintBottom_toTopOf="@+id/Contributor_D_display"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:text="C"
+            tools:padding="5dp" />
+
+        <TextView
+            android:id="@+id/C_name"
+            android:layout_width="87dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:padding="5dp"
+            android:text="Name" />
+
+        <TextView
+            android:id="@+id/C_teamNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="#####"
+            tools:padding="5dp" />
+
+        <ImageView
+            android:id="@+id/C_status_image"
+            android:layout_width="41dp"
+            android:layout_height="39dp"
+            android:layout_margin="15dp"
+            app:srcCompat="@android:drawable/btn_star_big_off" />
+
+        <ImageView
+            android:id="@+id/C_color"
+            android:layout_width="41dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@android:color/holo_purple" />
+
+        <Button
+            android:id="@+id/C_Xbutton"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:text="X"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/Contributor_D_display"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="#e2e2e2"
+        app:layout_constraintBottom_toTopOf="@+id/Contributor_E_display"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/d"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:text="D"
+            tools:padding="5dp" />
+
+        <TextView
+            android:id="@+id/D_name"
+            android:layout_width="87dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:padding="5dp"
+            android:text="Name" />
+
+        <TextView
+            android:id="@+id/D_teamNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="#####"
+            tools:padding="5dp" />
+
+        <ImageView
+            android:id="@+id/D_status_image"
+            android:layout_width="41dp"
+            android:layout_height="39dp"
+            android:layout_margin="15dp"
+            app:srcCompat="@android:drawable/btn_star_big_off" />
+
+        <ImageView
+            android:id="@+id/D_color"
+            android:layout_width="41dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@android:color/holo_purple" />
+
+        <Button
+            android:id="@+id/D_Xbutton"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:text="X"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/Contributor_E_display"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="#e2e2e2"
+        app:layout_constraintBottom_toTopOf="@+id/Contributor_F_display"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.636"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/e"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:text="E"
+            tools:padding="5dp" />
+
+        <TextView
+            android:id="@+id/E_name"
+            android:layout_width="87dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:padding="5dp"
+            android:text="Name" />
+
+        <TextView
+            android:id="@+id/E_teamNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="#####"
+            tools:padding="5dp" />
+
+        <ImageView
+            android:id="@+id/E_status_image"
+            android:layout_width="41dp"
+            android:layout_height="39dp"
+            android:layout_margin="15dp"
+            app:srcCompat="@android:drawable/btn_star_big_off" />
+
+        <ImageView
+            android:id="@+id/E_color"
+            android:layout_width="41dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@android:color/holo_purple" />
+
+        <Button
+            android:id="@+id/E_Xbutton"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:text="X"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+    </TableRow>
+
+    </android.support.constraint.ConstraintLayout>
