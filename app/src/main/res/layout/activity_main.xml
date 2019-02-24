@@ -1,123 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/main_view"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/steel_blue"
+    tools:context=".MainActivity">
+
+    <TableRow
+        android:id="@+id/top"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@color/pastel_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/pastel_gray">
+
+        <Button
+            android:id="@+id/main_button"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="3dp"
+            android:background="@color/quicksilver"
+            android:elevation="0dp"
+            android:fontFamily="@font/lato_regular"
+            android:text="MAIN"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            tools:fontFamily="@font/Quicksand-Regular" />
+
+        <Button
+            android:id="@+id/config_button"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/quicksilver"
+            android:fontFamily="@font/lato_regular"
+            android:text="CONFIG"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            tools:fontFamily="@font/Quicksand-Regular" />
+
+        <Button
+            android:id="@+id/subtract_button"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/red_tint"
+            android:elevation="0dp"
+            android:gravity="center_vertical"
+            android:text="@string/minus"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/matchNum_field"
+            android:layout_width="77dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:fontFamily="@font/lato_regular"
+            android:hint="Match #"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_place"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/add_button"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@color/green_tint"
+            android:elevation="0dp"
+            android:gravity="center_vertical"
+            android:text="@string/plus"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_place"
+            app:layout_constraintStart_toEndOf="@+id/matchNum_field"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/frc_logo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/frc_logo" />
+    </TableRow>
+
 
     <fragment
         android:id="@+id/fragment_place"
         android:name="com.lukekaufman48gmail.controller.BlankFragment"
         android:layout_width="0dp"
-        android:layout_height="541dp"
-        app:layout_constraintBottom_toTopOf="@+id/footer_background"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top" />
+
+
+    <TableRow
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/pastel_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frc_logo"
-        app:layout_constraintVertical_bias="0.0" />
+        tools:background="@color/pastel_gray">
 
-    <Button
-        android:id="@+id/config_button"
-        android:layout_width="74dp"
-        android:layout_height="49dp"
-        android:text="Config"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="1dp" />
+        <Button
+            android:id="@+id/start_button"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="0dp"
+            android:background="@color/quicksilver"
+            android:fontFamily="@font/lato_regular"
+            android:text="START"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/stop_button"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_place"
+            app:layout_constraintVertical_bias="1.0" />
 
-    <ImageView
-        android:id="@+id/header_background"
-        android:layout_width="1000dp"
-        android:layout_height="54dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.078"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@color/colorPrimary" />
+        <Button
+            android:id="@+id/stop_button"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="0dp"
+            android:background="@color/quicksilver"
+            android:fontFamily="@font/lato_regular"
+            android:text="Stop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/reset_button" />
 
-    <Button
-        android:id="@+id/main_button"
-        android:layout_width="65dp"
-        android:layout_height="49dp"
-        android:text="Main"
-        tools:layout_editor_absoluteX="74dp"
-        tools:layout_editor_absoluteY="1dp" />
+        <Button
+            android:id="@+id/reset_button"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="0dp"
+            android:background="@color/quicksilver"
+            android:fontFamily="@font/lato_regular"
+            android:text="RESET"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/upload_button"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_place"
+            app:layout_constraintVertical_bias="1.0" />
 
-    <ImageView
-        android:id="@+id/frc_logo"
-        android:layout_width="93dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/header_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/frc_logo" />
+        <Button
+            android:id="@+id/upload_button"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="0dp"
+            android:background="@color/red_tint"
+            android:fontFamily="@font/lato_regular"
+            android:gravity="center"
+            android:text="UPLOAD"
+            app:layout_constraintEnd_toEndOf="parent" />
 
+    </TableRow>
 
-    <ImageView
-        android:id="@+id/footer_background"
-        android:layout_width="1000dp"
-        android:layout_height="65dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@color/colorPrimary" />
-
-    <Button
-        android:id="@+id/upload_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="8dp"
-        android:text="UPLOAD"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/footer_background" />
-
-
-    <EditText
-        android:id="@+id/matchNum_field"
-        android:layout_width="77dp"
-        android:layout_height="41dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Match #"
-        android:inputType="number"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_place"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="185dp" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="41dp"
-        android:layout_height="41dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/red"
-        android:elevation="0dp"
-        android:text="-"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_place"
-        app:layout_constraintEnd_toStartOf="@+id/matchNum_field"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="41dp"
-        android:layout_height="41dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/green"
-        android:text="+"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_place"
-        app:layout_constraintStart_toEndOf="@+id/matchNum_field"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

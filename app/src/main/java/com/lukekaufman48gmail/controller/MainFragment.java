@@ -2,147 +2,278 @@ package com.lukekaufman48gmail.controller;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
 public class MainFragment extends Fragment {
 
+    public static final ArrayList<Contributor> contributors = new ArrayList<>();
+
+    private final String BUNDLE= "BUNDLED";
+
+    private final String A_CN_KEY = "ACN";
+    private final String A_TN_KEY = "ATN";
+    private final String A_C_KEY = "AC";
+    private final String A_DS_KEY = "ADS";
+
+    private final String B_CN_KEY = "BCN";
+    private final String B_TN_KEY = "BTN";
+    private final String B_C_KEY = "BC";
+    private final String B_DS_KEY = "BDS";
+
+    private final String C_CN_KEY = "CCN";
+    private final String C_TN_KEY = "CTN";
+    private final String C_C_KEY = "CC";
+    private final String C_DS_KEY = "CDS";
+
+    private final String D_CN_KEY = "DCN";
+    private final String D_TN_KEY = "DTN";
+    private final String D_C_KEY = "DC";
+    private final String D_DS_KEY = "DDS";
+
+    private final String E_CN_KEY = "ECN";
+    private final String E_TN_KEY = "ETN";
+    private final String E_C_KEY = "EC";
+    private final String E_DS_KEY = "EDS";
+
+    private final String F_CN_KEY = "FCN";
+    private final String F_TN_KEY = "FTN";
+    private final String F_C_KEY = "FC";
+    private final String F_DS_KEY = "FDS";
+//
+    private Bundle savedState = null;
+    private TextView cnA;
+    private TextView tnA;
+    private ImageView cA;
+    private RadioButton dsA;
+
+    private TextView cnB;
+    private TextView tnB;
+    private ImageView cB;
+    private RadioButton dsB;
+
+    private TextView cnC;
+    private TextView tnC;
+    private ImageView cC;
+    private RadioButton dsC;
+
+    private TextView cnD;
+    private TextView tnD;
+    private ImageView cD;
+    private RadioButton dsD;
+
+    private TextView cnE;
+    private TextView tnE;
+    private ImageView cE;
+    private RadioButton dsE;
+
+    private TextView cnF;
+    private TextView tnF;
+    private ImageView cF;
+    private RadioButton dsF;
+
+    private ColorDrawable coA;
+    private ColorDrawable coB;
+    private ColorDrawable coC;
+    private ColorDrawable coD;
+    private ColorDrawable coE;
+    private ColorDrawable coF;
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.main_fragment, container, false);
+
+        cnA = view.findViewById(R.id.A_name);
+        tnA = view.findViewById(R.id.A_teamNumber);
+        cA = view.findViewById(R.id.A_color);
+
+        dsA = view.findViewById(R.id.A_status);
+        dsA.setClickable(false);
+
+        cnB = view.findViewById(R.id.B_name);
+        tnB = view.findViewById(R.id.B_teamNumber);
+        cB = view.findViewById(R.id.B_color);
+
+        dsB = view.findViewById(R.id.B_status);
+        dsB.setClickable(false);
+
+        cnC = view.findViewById(R.id.C_name);
+        tnC = view.findViewById(R.id.C_teamNumber);
+        cC = view.findViewById(R.id.C_color);
+
+        dsC = view.findViewById(R.id.C_status);
+        dsC.setClickable(false);
+
+        cnD = view.findViewById(R.id.D_name);
+        tnD = view.findViewById(R.id.D_teamNumber);
+        cD = view.findViewById(R.id.D_color);
+
+        dsD = view.findViewById(R.id.D_status);
+        dsD.setClickable(false);
+
+        cnE = view.findViewById(R.id.E_name);
+        tnE = view.findViewById(R.id.E_teamNumber);
+        cE = view.findViewById(R.id.E_color);
+
+        dsE = view.findViewById(R.id.E_status);
+        dsE.setClickable(false);
+
+        cnF = view.findViewById(R.id.F_name);
+        tnF = view.findViewById(R.id.F_teamNumber);
+        cF = view.findViewById(R.id.F_color);
+        ColorDrawable coF = (ColorDrawable) cF.getBackground();
+        dsF = view.findViewById(R.id.F_status);
+        dsF.setClickable(false);
+
+        if (savedInstanceState != null && savedState == null) {
+            savedState = savedInstanceState.getBundle(BUNDLE);
+        }
+        if (savedState != null) {
+            cnA.setText(savedState.getCharSequence(A_CN_KEY));
+            tnA.setText(savedState.getCharSequence(A_TN_KEY));
+            cA.setBackgroundColor(savedState.getInt(A_C_KEY));
+            dsA.setActivated(savedState.getBoolean(A_DS_KEY));
+
+            cnB.setText(savedState.getCharSequence(B_CN_KEY));
+            tnB.setText(savedState.getCharSequence(B_TN_KEY));
+            cB.setBackgroundColor(savedState.getInt(B_C_KEY));
+            dsB.setActivated(savedState.getBoolean(B_DS_KEY));
+
+            cnC.setText(savedState.getCharSequence(C_CN_KEY));
+            tnC.setText(savedState.getCharSequence(C_TN_KEY));
+            cC.setBackgroundColor(savedState.getInt(C_C_KEY));
+            dsC.setActivated(savedState.getBoolean(C_DS_KEY));
+
+            cnD.setText(savedState.getCharSequence(D_CN_KEY));
+            tnD.setText(savedState.getCharSequence(D_TN_KEY));
+            cD.setBackgroundColor(savedState.getInt(D_C_KEY));
+            dsD.setActivated(savedState.getBoolean(D_DS_KEY));
+
+            cnE.setText(savedState.getCharSequence(E_CN_KEY));
+            tnE.setText(savedState.getCharSequence(E_TN_KEY));
+            cE.setBackgroundColor(savedState.getInt(E_C_KEY));
+            dsE.setActivated(savedState.getBoolean(E_DS_KEY));
+
+            cnF.setText(savedState.getCharSequence(F_CN_KEY));
+            tnF.setText(savedState.getCharSequence(F_TN_KEY));
+            cF.setBackgroundColor(savedState.getInt(F_C_KEY));
+            dsF.setActivated(savedState.getBoolean(F_DS_KEY));
+        }
+        savedState = null;
         return view;
+
     }
 
     @Override
-    public void onViewCreated (View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        TextView tn_A = view.findViewById(R.id.A_teamNumber);
-        ImageView c_A = view.findViewById(R.id.A_color);
-        ImageView s_A = view.findViewById(R.id.A_status_image);
-        TextView tn_B = view.findViewById(R.id.B_teamNumber);
-        ImageView c_B = view.findViewById(R.id.B_color);
-        ImageView s_B = view.findViewById(R.id.B_status_image);
-        TextView tn_C = view.findViewById(R.id.C_teamNumber);
-        ImageView c_C = view.findViewById(R.id.C_color);
-        ImageView s_C = view.findViewById(R.id.C_status_image);
-        TextView tn_D = view.findViewById(R.id.D_teamNumber);
-        ImageView c_D = view.findViewById(R.id.D_color);
-        ImageView s_D = view.findViewById(R.id.D_status_image);
-        TextView tn_E = view.findViewById(R.id.E_teamNumber);
-        ImageView c_E = view.findViewById(R.id.E_color);
-        ImageView s_E = view.findViewById(R.id.E_status_image);
-        TextView tn_F = view.findViewById(R.id.F_teamNumber);
-        ImageView c_F = view.findViewById(R.id.F_color);
-        ImageView s_F = view.findViewById(R.id.F_status_image);
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //String[] data_arr = {"2468", "t", "t", "1489", "t", "f", "2584", "f", "t", "2568", "f", "f", "5628", "t", "f", "4321", "f", "t"};
-        /*String[][] data_mat = new String[6][3];
-        int i = 0;
-        for (int r = 0; r < 6; r++) {
-            for (int c = 0; c < 3; c++) {
-                data_mat[r][c] = data_arr[i];
-                i++;
-            }
-        }*/
-        //Contributor A
-        /*final ContributorA instance_A = new ContributorA(data_mat[0][0], toBoolean(data_mat[0][1]), toBoolean(data_mat[0][2]), this, tn_A, c_A, s_A);
-        instance_A.UpdateDisplay();
-        final Button buttonA = view.findViewById(R.id.A_Xbutton);
-        buttonA.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                instance_A.ClearDisplay();
-            }
-        });
-        //Contributor B
-        final ContributorB instance_B = new ContributorB(data_mat[1][0], toBoolean(data_mat[1][1]), toBoolean(data_mat[1][2]), this, tn_B, c_B, s_B);
-        instance_B.UpdateDisplay();
-        final Button buttonB = view.findViewById(R.id.B_Xbutton);
-        buttonB.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                instance_B.ClearDisplay();
-            }
-        });
-        //Contributor C
-        final ContributorC instance_C = new ContributorC(data_mat[2][0], toBoolean(data_mat[2][1]), toBoolean(data_mat[2][2]), this, tn_C, c_C, s_C);
-        instance_C.UpdateDisplay();
-        final Button buttonC = view.findViewById(R.id.C_Xbutton);
-        buttonC.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                instance_C.ClearDisplay();
-            }
-        });
-        //Contributor D
-        final ContributorD instance_D = new ContributorD(data_mat[3][0], toBoolean(data_mat[3][1]), toBoolean(data_mat[3][2]), , tn_D, c_D, s_D);
-        instance_D.UpdateDisplay();
-        final Button buttonD = view.findViewById(R.id.D_Xbutton);
-        buttonD.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                instance_D.ClearDisplay();
-            }
-        });
-        //Contributor E
-        final ContributorE instance_E = new ContributorE(data_mat[4][0], toBoolean(data_mat[4][1]), toBoolean(data_mat[4][2]), this, tn_E, c_E, s_E);
-        instance_E.UpdateDisplay();
-        final Button buttonE = view.findViewById(R.id.E_Xbutton);
-        buttonE.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                instance_E.ClearDisplay();
-            }
-        });
-        //Contributor F
-        final ContributorF instance_F = new ContributorF(data_mat[5][0], toBoolean(data_mat[5][1]), toBoolean(data_mat[5][2]), 4, tn_F, c_F, s_F);
-        instance_F.UpdateDisplay();final Button buttonF = view.findViewById(R.id.F_Xbutton);
-        buttonF.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                instance_F.ClearDisplay();
-            }
-        });
-        //Match Num Field
-        final Button uploadbutton = view.findViewById(R.id.upload_button);
-        uploadbutton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //final EditText matchnum = findViewById(R.id.matchNum_field);
-                //String num = "Match Num: " + matchnum.getText().toString();
-                //final Snackbar mySnackbar = Snackbar.make(findViewById(R.id.myCoordinatorLayout), num,
-                //Snackbar.LENGTH_SHORT);
-                // mySnackbar.show();
-            }
-        });*/
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.v("LUKER", "On create for Main Fragment");
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        savedState = saveState();
+        cnA = null;
+        tnA = null;
+        cA = null;
+        dsA = null;
 
+        cnB = null;
+        tnB = null;
+        cB = null;
+        dsB = null;
 
-    /*public boolean toBoolean(String torf) {
-        if (torf.equals("t"))
-            return true;
-        else if (torf.equals("f"))
-            return false;
-        else
-            return true;
-    }*/
+        cnC = null;
+        tnC = null;
+        cC = null;
+        dsC = null;
+
+        cnD = null;
+        tnD = null;
+        cD = null;
+        dsD = null;
+
+        cnE = null;
+        tnE = null;
+        cE = null;
+        dsE = null;
+
+        cnF = null;
+        tnF = null;
+        cF = null;
+        dsF = null;
+    }
+
+    private Bundle saveState() { /* called either from onDestroyView() or onSaveInstanceState() */
+        Bundle state = new Bundle();
+        ColorDrawable coA = (ColorDrawable) cA.getBackground();
+        ColorDrawable coB = (ColorDrawable) cB.getBackground();
+        ColorDrawable coC = (ColorDrawable) cC.getBackground();
+        ColorDrawable coD = (ColorDrawable) cD.getBackground();
+        ColorDrawable coE = (ColorDrawable) cE.getBackground();
+        ColorDrawable coF = (ColorDrawable) cF.getBackground();
+
+        state.putCharSequence(A_CN_KEY, cnA.getText());
+        state.putCharSequence(A_TN_KEY, tnA.getText());
+        state.putInt(A_C_KEY, coA.getColor());
+        state.putBoolean(A_DS_KEY, dsA.isActivated());
+
+        state.putCharSequence(B_CN_KEY, cnB.getText());
+        state.putCharSequence(B_TN_KEY, tnB.getText());
+        state.putInt(B_C_KEY, coB.getColor());
+        state.putBoolean(B_DS_KEY, dsB.isActivated());
+
+        state.putCharSequence(C_CN_KEY, cnC.getText());
+        state.putCharSequence(C_TN_KEY, tnC.getText());
+        state.putInt(C_C_KEY,coC.getColor());
+        state.putBoolean(C_DS_KEY, dsC.isActivated());
+
+        state.putCharSequence(D_CN_KEY, cnD.getText());
+        state.putCharSequence(D_TN_KEY, tnD.getText());
+        state.putInt(D_C_KEY, coD.getColor());
+        state.putBoolean(D_DS_KEY, dsD.isActivated());
+
+        state.putCharSequence(E_CN_KEY, cnE.getText());
+        state.putCharSequence(E_TN_KEY, tnE.getText());
+        state.putInt(E_C_KEY, coE.getColor());
+        state.putBoolean(E_DS_KEY, dsE.isActivated());
+
+        state.putCharSequence(F_CN_KEY, cnF.getText());
+        state.putCharSequence(F_TN_KEY, tnF.getText());
+        state.putInt(F_C_KEY, coF.getColor());
+        state.putBoolean(F_DS_KEY, dsF.isActivated());
+
+        return state;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        /* If onDestroyView() is called first, we can use the previously savedState but we can't call saveState() anymore */
+        /* If onSaveInstanceState() is called first, we don't have savedState, so we need to call saveState() */
+        /* => (?:) operator inevitable! */
+        outState.putBundle(BUNDLE, (savedState != null) ? savedState : saveState());
+    }
+
 }

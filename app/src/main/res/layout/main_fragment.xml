@@ -9,397 +9,478 @@
         tools:context=".MainActivity">
 
 
-        <TableRow
-            android:id="@+id/Contributor_F_display"
-            android:layout_width="wrap_content"
+        <TableLayout
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="13dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="463dp"
-            android:background="#e2e2e2"
-            app:layout_constraintBottom_toTopOf="@+id/footer_background"
+            android:background="@color/steel_blue"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.636"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/f"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
-                android:text="F"
-                tools:padding="5dp" />
-
-            <TextView
-                android:id="@+id/F_name"
-                android:layout_width="87dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:padding="5dp"
-                android:text="Name" />
-
-            <TextView
-                android:id="@+id/F_teamNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:text="#####"
-                tools:padding="5dp" />
-
-            <ImageView
-                android:id="@+id/F_status_image"
-                android:layout_width="41dp"
-                android:layout_height="39dp"
-                android:layout_margin="15dp"
-                app:srcCompat="@android:drawable/btn_star_big_off" />
-
-            <ImageView
-                android:id="@+id/F_color"
-                android:layout_width="41dp"
+            <TableRow
+                android:id="@+id/Contributor_A_display"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                app:srcCompat="@android:color/holo_purple" />
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/pastel_gray"
+                android:fadingEdge="horizontal|vertical"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <Button
-                android:id="@+id/F_Xbutton"
-                android:layout_width="50dp"
+                <TextView
+                    android:id="@+id/A"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_margin="7dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center"
+                    android:text="A"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:textStyle="normal"
+                    tools:padding="0dp" />
+
+                <TextView
+                    android:id="@+id/A_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center"
+                    android:maxLength="9"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="ExampName"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/A_teamNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical|center"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="#####"
+                    android:textAlignment="center" />
+
+                <RadioButton
+                    android:id="@+id/A_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:textColorLink="@color/steel_blue" />
+
+                <ImageView
+                    android:id="@+id/A_color"
+                    android:layout_width="33dp"
+                    android:layout_height="41dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/steel_blue"
+                    android:fadingEdge="horizontal|vertical"
+                    android:fadingEdgeLength="5dp"
+                    android:filterTouchesWhenObscured="false"
+                    android:requiresFadingEdge="horizontal|vertical" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Contributor_B_display"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="X"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-        </TableRow>
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/pastel_gray"
+                android:fadingEdge="horizontal|vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Contributor_A_display">
 
-    <TableRow
-        android:id="@+id/Contributor_A_display"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="13dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="#e2e2e2"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/Contributor_B_display"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.636"
-        app:layout_constraintStart_toStartOf="parent">
+                <TextView
+                    android:id="@+id/b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_margin="7dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center"
+                    android:text="B"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:textStyle="normal"
+                    tools:padding="0dp" />
 
-        <TextView
-            android:id="@+id/A"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            android:text="A"
-            tools:padding="5dp" />
+                <TextView
+                    android:id="@+id/B_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center"
+                    android:maxLength="9"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="ExampName"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/A_name"
-            android:layout_width="86dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:text="Name" />
+                <TextView
+                    android:id="@+id/B_teamNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical|center"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="#####"
+                    android:textAlignment="center" />
 
-        <TextView
-            android:id="@+id/A_teamNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:text="#####"
-            tools:padding="5dp" />
+                <RadioButton
+                    android:id="@+id/B_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:textColorLink="@color/steel_blue" />
 
-        <ImageView
-            android:id="@+id/A_status_image"
-            android:layout_width="41dp"
-            android:layout_height="39dp"
-            android:layout_margin="15dp"
-            app:srcCompat="@android:drawable/btn_star_big_off" />
+                <ImageView
+                    android:id="@+id/B_color"
+                    android:layout_width="33dp"
+                    android:layout_height="41dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/steel_blue"
+                    android:fadingEdge="horizontal|vertical"
+                    android:fadingEdgeLength="5dp"
+                    android:filterTouchesWhenObscured="false"
+                    android:requiresFadingEdge="horizontal|vertical" />
 
-        <ImageView
-            android:id="@+id/A_color"
-            android:layout_width="41dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            app:srcCompat="@android:color/holo_purple" />
+            </TableRow>
 
-        <Button
-            android:id="@+id/A_Xbutton"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:text="X"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-    </TableRow>
+            <TableRow
+                android:id="@+id/Contributor_C_display"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/pastel_gray"
+                android:fadingEdge="horizontal|vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Contributor_B_display">
 
-    <TableRow
-        android:id="@+id/Contributor_B_display"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="13dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="#e2e2e2"
-        app:layout_constraintBottom_toTopOf="@+id/Contributor_C_display"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.636"
-        app:layout_constraintStart_toStartOf="parent">
+                <TextView
+                    android:id="@+id/c"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_margin="7dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center"
+                    android:text="C"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:textStyle="normal"
+                    tools:padding="0dp" />
 
-        <TextView
-            android:id="@+id/b"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            android:text="B"
-            tools:padding="5dp" />
+                <TextView
+                    android:id="@+id/C_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center"
+                    android:maxLength="9"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="ExampName"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/B_name"
-            android:layout_width="86dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:text="Name" />
+                <TextView
+                    android:id="@+id/C_teamNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical|center"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="#####"
+                    android:textAlignment="center" />
 
-        <TextView
-            android:id="@+id/B_teamNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:text="#####"
-            tools:padding="5dp" />
+                <RadioButton
+                    android:id="@+id/C_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:textColorLink="@color/steel_blue" />
 
-        <ImageView
-            android:id="@+id/B_status_image"
-            android:layout_width="41dp"
-            android:layout_height="39dp"
-            android:layout_margin="15dp"
-            app:srcCompat="@android:drawable/btn_star_big_off" />
+                <ImageView
+                    android:id="@+id/C_color"
+                    android:layout_width="33dp"
+                    android:layout_height="41dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/steel_blue"
+                    android:filterTouchesWhenObscured="false"
+                    android:requiresFadingEdge="horizontal|vertical" />
 
-        <ImageView
-            android:id="@+id/B_color"
-            android:layout_width="41dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            app:srcCompat="@android:color/holo_purple" />
+            </TableRow>
 
-        <Button
-            android:id="@+id/B_Xbutton"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:text="X"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-    </TableRow>
+            <TableRow
+                android:id="@+id/Contributor_D_display"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/pastel_gray"
+                android:fadingEdge="horizontal|vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.476"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Contributor_C_display">
 
-    <TableRow
-        android:id="@+id/Contributor_C_display"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="13dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="#e2e2e2"
-        app:layout_constraintBottom_toTopOf="@+id/Contributor_D_display"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="parent">
+                <TextView
+                    android:id="@+id/d"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_margin="7dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center"
+                    android:text="D"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:textStyle="normal"
+                    tools:padding="0dp" />
 
-        <TextView
-            android:id="@+id/c"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            android:text="C"
-            tools:padding="5dp" />
+                <TextView
+                    android:id="@+id/D_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center"
+                    android:maxLength="9"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="ExampName"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/C_name"
-            android:layout_width="87dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:text="Name" />
+                <TextView
+                    android:id="@+id/D_teamNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical|center"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="#####"
+                    android:textAlignment="center" />
 
-        <TextView
-            android:id="@+id/C_teamNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:text="#####"
-            tools:padding="5dp" />
+                <RadioButton
+                    android:id="@+id/D_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:textColorLink="@color/steel_blue" />
 
-        <ImageView
-            android:id="@+id/C_status_image"
-            android:layout_width="41dp"
-            android:layout_height="39dp"
-            android:layout_margin="15dp"
-            app:srcCompat="@android:drawable/btn_star_big_off" />
+                <ImageView
+                    android:id="@+id/D_color"
+                    android:layout_width="33dp"
+                    android:layout_height="41dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/steel_blue"
+                    android:fadingEdge="horizontal|vertical"
+                    android:fadingEdgeLength="5dp"
+                    android:filterTouchesWhenObscured="false"
+                    android:requiresFadingEdge="horizontal|vertical" />
 
-        <ImageView
-            android:id="@+id/C_color"
-            android:layout_width="41dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            app:srcCompat="@android:color/holo_purple" />
+            </TableRow>
 
-        <Button
-            android:id="@+id/C_Xbutton"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:text="X"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-    </TableRow>
+            <TableRow
+                android:id="@+id/Contributor_E_display"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/pastel_gray"
+                android:fadingEdge="horizontal|vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Contributor_D_display">
 
-    <TableRow
-        android:id="@+id/Contributor_D_display"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="13dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="#e2e2e2"
-        app:layout_constraintBottom_toTopOf="@+id/Contributor_E_display"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="parent">
+                <TextView
+                    android:id="@+id/e"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_margin="7dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center"
+                    android:text="E"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:textStyle="normal"
+                    tools:padding="0dp" />
 
-        <TextView
-            android:id="@+id/d"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            android:text="D"
-            tools:padding="5dp" />
+                <TextView
+                    android:id="@+id/E_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center"
+                    android:maxLength="9"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="ExampName"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/D_name"
-            android:layout_width="87dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:text="Name" />
+                <TextView
+                    android:id="@+id/E_teamNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical|center"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="#####"
+                    android:textAlignment="center" />
 
-        <TextView
-            android:id="@+id/D_teamNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:text="#####"
-            tools:padding="5dp" />
+                <RadioButton
+                    android:id="@+id/E_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:textColorLink="@color/steel_blue" />
 
-        <ImageView
-            android:id="@+id/D_status_image"
-            android:layout_width="41dp"
-            android:layout_height="39dp"
-            android:layout_margin="15dp"
-            app:srcCompat="@android:drawable/btn_star_big_off" />
+                <ImageView
+                    android:id="@+id/E_color"
+                    android:layout_width="33dp"
+                    android:layout_height="41dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/steel_blue"
+                    android:fadingEdge="horizontal|vertical"
+                    android:fadingEdgeLength="5dp"
+                    android:filterTouchesWhenObscured="false"
+                    android:requiresFadingEdge="horizontal|vertical" />
 
-        <ImageView
-            android:id="@+id/D_color"
-            android:layout_width="41dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            app:srcCompat="@android:color/holo_purple" />
+            </TableRow>
 
-        <Button
-            android:id="@+id/D_Xbutton"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:text="X"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-    </TableRow>
+            <TableRow
+                android:id="@+id/Contributor_F_display"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/pastel_gray"
+                android:fadingEdge="horizontal|vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.476"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Contributor_E_display">
 
-    <TableRow
-        android:id="@+id/Contributor_E_display"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="13dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="#e2e2e2"
-        app:layout_constraintBottom_toTopOf="@+id/Contributor_F_display"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.636"
-        app:layout_constraintStart_toStartOf="parent">
+                <TextView
+                    android:id="@+id/f"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_margin="7dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center"
+                    android:text="F"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:textStyle="normal"
+                    tools:padding="0dp" />
 
-        <TextView
-            android:id="@+id/e"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            android:text="E"
-            tools:padding="5dp" />
+                <TextView
+                    android:id="@+id/F_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center"
+                    android:maxLength="9"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="ExampName"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/E_name"
-            android:layout_width="87dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:padding="5dp"
-            android:text="Name" />
+                <TextView
+                    android:id="@+id/F_teamNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical|center"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="#####"
+                    android:textAlignment="center" />
 
-        <TextView
-            android:id="@+id/E_teamNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:text="#####"
-            tools:padding="5dp" />
+                <RadioButton
+                    android:id="@+id/F_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:textColorLink="@color/steel_blue" />
 
-        <ImageView
-            android:id="@+id/E_status_image"
-            android:layout_width="41dp"
-            android:layout_height="39dp"
-            android:layout_margin="15dp"
-            app:srcCompat="@android:drawable/btn_star_big_off" />
+                <ImageView
+                    android:id="@+id/F_color"
+                    android:layout_width="33dp"
+                    android:layout_height="41dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/steel_blue"
+                    android:fadingEdge="horizontal|vertical"
+                    android:fadingEdgeLength="5dp"
+                    android:filterTouchesWhenObscured="false"
+                    android:requiresFadingEdge="horizontal|vertical" />
 
-        <ImageView
-            android:id="@+id/E_color"
-            android:layout_width="41dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            app:srcCompat="@android:color/holo_purple" />
+            </TableRow>
 
-        <Button
-            android:id="@+id/E_Xbutton"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:text="X"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-    </TableRow>
+        </TableLayout>
 
-    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

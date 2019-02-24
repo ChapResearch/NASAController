@@ -3,4 +3,11 @@
     <string name="ble_uuid">0CF264CE-8981-4702-99D2-08D6136CA423</string>
     <string name="title_activity_configure">ConfigureActivity</string>
     <string name="title_activity_config">Configuration Page</string>
+    <string name="plus">&#65291;</string>
+    <string name="minus">&#8722;</string>
+    <string name="X">&#10005;</string>
+    <string name="defCN">Whatsup</string>
+    <string name="defTN">######</string>
+
+
 </resources>

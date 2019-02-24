@@ -19,8 +19,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="$PROJECT_DIR$/../../on_star.png" />
-                                      <entry key="outputName" value="on_star" />
+                                      <entry key="imageAsset" value="$PROJECT_DIR$/../nasa_icon_250x250.png" />
+                                      <entry key="outputName" value="icon" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -68,18 +68,13 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="foregroundImage" value="$PROJECT_DIR$/../../on_star.png" />
-                                      <entry key="foregroundLayerName" value="on_star" />
+                                      <entry key="foregroundImage" value="$PROJECT_DIR$/../nasa_icon_250x250.png" />
+                                      <entry key="foregroundLayerName" value="nasa_icon" />
                                     </map>
                                   </option>
                                 </PersistentState>
                               </value>
                             </entry>
-                          </map>
-                        </option>
-                        <option name="values">
-                          <map>
-                            <entry key="outputIconType" value="ACTIONBAR" />
                           </map>
                         </option>
                       </PersistentState>
