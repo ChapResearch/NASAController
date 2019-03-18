@@ -1,36 +1,32 @@
 package com.lukekaufman48gmail.controller;
 
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.media.MediaPlayer;
+import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Config;
-import android.widget.CheckBox;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.RadioButton;
 import android.widget.TableRow;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.ImageView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.support.design.widget.Snackbar;
-import android.widget.Switch;
 import android.widget.Toast;
-import android.graphics.Color;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.FragmentManager;
-import android.util.Log;
 
-import android.os.ParcelUuid;
 import org.w3c.dom.Text;
-import java.net.InterfaceAddress;
-import java.util.*;
 
 
 public class MainActivity extends AppCompatActivity{
@@ -74,29 +70,64 @@ public class MainActivity extends AppCompatActivity{
         @Override
         public void NASA_slotChange(int slot, boolean claimed) {
             TableRow indicator = null;
+            TextView CN = null;
+            TextView TN = null;
+            RadioButton DS = null;
+            ImageView C = null;
 
             switch (slot) {
                 case 0:
                     indicator = findViewById(R.id.Contributor_A_display);
+                    CN = findViewById(R.id.A_name);
+                    TN = findViewById(R.id.A_teamNumber);
+                    DS = findViewById(R.id.A_status);
+                    C = findViewById(R.id.A_color);
                     break;
                 case 1:
                     indicator = findViewById(R.id.Contributor_B_display);
+                    CN = findViewById(R.id.B_name);
+                    TN = findViewById(R.id.B_teamNumber);
+                    DS = findViewById(R.id.B_status);
+                    C = findViewById(R.id.B_color);
                     break;
                 case 2:
                     indicator = findViewById(R.id.Contributor_C_display);
+                    CN = findViewById(R.id.C_name);
+                    TN = findViewById(R.id.C_teamNumber);
+                    DS = findViewById(R.id.C_status);
+                    C = findViewById(R.id.C_color);
                     break;
                 case 3:
                     indicator = findViewById(R.id.Contributor_D_display);
+                    CN = findViewById(R.id.D_name);
+                    TN = findViewById(R.id.D_teamNumber);
+                    DS = findViewById(R.id.D_status);
+                    C = findViewById(R.id.D_color);
                     break;
                 case 4:
                     indicator = findViewById(R.id.Contributor_E_display);
+                    CN = findViewById(R.id.E_name);
+                    TN = findViewById(R.id.E_teamNumber);
+                    DS = findViewById(R.id.E_status);
+                    C = findViewById(R.id.E_color);
                     break;
                 case 5:
                     indicator = findViewById(R.id.Contributor_F_display);
+                    CN = findViewById(R.id.F_name);
+                    TN = findViewById(R.id.F_teamNumber);
+                    DS = findViewById(R.id.F_status);
+                    C = findViewById(R.id.F_color);
                     break;
             }
             if (claimed) {
-                indicator.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.yellow_indicator));
+                indicator.setBackground(ContextCompat.getDrawable(getBaseContext(),R.drawable.claimedborder));
+            }
+            else{
+                indicator.setBackground(ContextCompat.getDrawable(getBaseContext(),R.drawable.border));
+                CN.setText(" No Name ");
+                TN.setText("#####");
+                DS.setActivated(false);
+                C.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.colorborder));
             }
         }
 
@@ -126,20 +157,19 @@ public class MainActivity extends AppCompatActivity{
                     break;
             }
 
-            int color;
             switch (givenColor) {
                 case 1:
-                    color = Color.parseColor("#ea5165a6");
+                    teamColor.setBackgroundColor(ContextCompat.getColor(getBaseContext(),R.color.blue_tint));
                     break;
                 case 2:
-                    color = Color.parseColor("#d7ce6d6d");
+                    teamColor.setBackgroundColor(ContextCompat.getColor(getBaseContext(),R.color.red_tint));
                     break;
                 default:
-                    color = Color.parseColor("#b1cbdb");
+                    teamColor.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.transparent));
                     break;
             }
 
-            teamColor.setBackgroundColor(color);
+
         }
 
         @Override
@@ -224,28 +254,25 @@ public class MainActivity extends AppCompatActivity{
 
     public MainFragment mainFragment = new MainFragment();
     public ConfigFragment configFragment = new ConfigFragment(bleCallbacks);
-    //public static ArrayList<Contributor> contributors = new ArrayList<>();
+    public String conF = "conF";
+    public String mainF = "mainF";
+    public String currentFragment;
+    public boolean toastCanceled = false;
+    public boolean toastUploaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        loadFragment(mainFragment);
+        loadFragment(configFragment);
+        Log.v("LUKER", "On create for MainActivity");
 
-        //Set up all contributors with IDs for storing data into Contributor class
-        //contributors.add(new Contributor(this,R.id.A_name, R.id.A_teamNumber, R.id.A_color, R.id.A_status));
-        //contributor_A = findViewById(R.id.A_contributorName);
+        ble = new NASA_BLE(this);
+        ble.startServer(bleCallbacks);
 
         final Button config_button = findViewById(R.id.config_button);
         config_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                /*for(Contributor c: contributors){
-                    c.storeDisplay();
-
-                }*/
-
-
-                //Log.v("LUKER", "PLEASE WORK " + MainFragment.AcontributorName + " " + MainFragment.AteamNumber + " " + MainFragment.Astatus);
                 loadFragment(configFragment);
             }
         });
@@ -254,27 +281,23 @@ public class MainActivity extends AppCompatActivity{
         main_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 loadFragment(mainFragment);
-                /*for(Contributor c: contributors){
-                    c.loadDisplay();
-                }*/
-
-            /*
-                ((TextView)findViewById(R.id.A_name)).setText(MainFragment.AcontributorName);
-                ((TextView)findViewById(R.id.A_teamNumber)).setText(MainFragment.AcontributorName);
-                ((ImageView)findViewById(R.id.A_color)).setColorFilter(MainFragment.Acolor);
-                (findViewById(R.id.A_status)).setActivated(MainFragment.Astatus);*/
 
             }
         });
 
-        ble = new NASA_BLE(this);
-        ble.startServer(bleCallbacks);
+
 
         final Button startButton = findViewById(R.id.start_button);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                shakeAnim(startButton);
                 ble.startContributors();
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Time started",
+                        Toast.LENGTH_SHORT);
+
+                toast.show();
             }
         });
 
@@ -284,30 +307,25 @@ public class MainActivity extends AppCompatActivity{
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                shakeAnim(stopButton);
                 ble.stopContributors();
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Time Stopped",
+                        Toast.LENGTH_SHORT);
+
+                toast.show();
             }
         });
 
-        // monitor the reset button
-
-        final Button resetButton = findViewById(R.id.reset_button);
-        resetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ble.resetContributors();
-            }
-        });
 
         final Button uploadButton = findViewById(R.id.upload_button);
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ble.transmitContributors();
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        "Data Uploaded - maybe?",
-                        Toast.LENGTH_SHORT);
-
-                toast.show();
+                shakeAnim(uploadButton);
+                //ble.transmitContributors();
+                showUploadConfirmation();
             }
         });
 
@@ -321,7 +339,9 @@ public class MainActivity extends AppCompatActivity{
         matchNum_field.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+
+            }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start,
@@ -332,6 +352,7 @@ public class MainActivity extends AppCompatActivity{
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
                 ble.resetContributors();
+                ble.matchUpdateContributors();
             }
         });
 
@@ -343,6 +364,7 @@ public class MainActivity extends AppCompatActivity{
                             num--;
                             matchNum_field.setText("" + num);
                             ble.resetContributors();
+                            ble.matchUpdateContributors();
                         }
                     }
                 }
@@ -358,6 +380,8 @@ public class MainActivity extends AppCompatActivity{
                     matchNum_field.setText("" + num);
                 }
                 ble.resetContributors();
+                ble.matchUpdateContributors();
+                playBruh();
 
             }
         });
@@ -374,8 +398,167 @@ public class MainActivity extends AppCompatActivity{
     // replace the FrameLayout with new Fragment
         fragmentTransaction.replace(R.id.fragment_place, fragment);
         fragmentTransaction.commit(); // save the changes
+
+        if(fragment == mainFragment){
+            currentFragment = mainF;
+        }
+        else if(fragment == configFragment){
+            currentFragment = conF;
+        }
     }
 
+    /*@Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.v("LUKER", "onDestroy for mainActivity");
+        ble.stopServer();
+
+    }*/
+
+    //TODO - add confirmation of closing app will make you lose connections
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.v("LUKER", "onStop for mainActivity");
+        ble.stopServer();
+
+    }
+
+    public void shakeAnim(Button b){
+        Animation shake = AnimationUtils.loadAnimation(getBaseContext(), R.anim.shake);
+        b.startAnimation(shake);
+    }
+
+    public void playBruh(){
+        MediaPlayer ring= MediaPlayer.create(MainActivity.this,R.raw.bruh);
+        ring.start();
+    }
+
+    public void showUploadConfirmation() {
+
+        if (currentFragment == mainF) {
+
+            //check which contributors have sent in data
+            RadioButton[] statuses = {findViewById(R.id.A_status),
+                    findViewById(R.id.B_status),
+                    findViewById(R.id.C_status),
+                    findViewById(R.id.D_status),
+                    findViewById(R.id.E_status),
+                    findViewById(R.id.F_status)
+            };
+
+            String warning = "These Scouters have not sent in data: ";
+            String append = "";
+            for (int i = 0; i < statuses.length; i++) {
+                if (!statuses[i].isActivated()) {
+                    if (i == 0)
+                        append += "A, ";
+                    else if (i == 1)
+                        append += "B, ";
+                    else if (i == 2)
+                        append += "C, ";
+                    else if (i == 3)
+                        append += "D, ";
+                    else if (i == 4)
+                        append += "E, ";
+                    else if (i == 5)
+                        append += "F, ";
+                }
+            }
+            if(append.length()>2)
+            append = append.substring(0, append.length() - 2);
 
 
+            Log.v("LUKER", append);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Are you sure you want to upload?");
+
+            warning = warning + append;
+            builder.setMessage(warning);
+            builder.setCancelable(false);
+
+
+            if(append.length()>1) {
+                builder.setPositiveButton("Upload", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which){
+                                ble.transmitContributors();
+                                Toast toast = Toast.makeText(getApplicationContext(),
+                                        "Data Uploaded",
+                                        Toast.LENGTH_SHORT);
+
+                                toast.show();
+                            }
+                });
+            }
+
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Data Upload Canceled",
+                            Toast.LENGTH_SHORT);
+
+                    toast.show();
+                }
+            });
+
+            builder.show();
+
+
+            /*LayoutInflater inflater = getLayoutInflater();
+            View layout = inflater.inflate(R.layout.toast,
+                    (ViewGroup) findViewById(R.id.toast_layout_root));
+
+            final TextView mainToastText = (TextView) layout.findViewById(R.id.toast_text);
+            mainToastText.setText("Are you sure you want to upload?");
+            RadioButton[] statuses = {findViewById(R.id.A_status),
+                    findViewById(R.id.B_status),
+                    findViewById(R.id.C_status),
+                    findViewById(R.id.D_status),
+                    findViewById(R.id.E_status),
+                    findViewById(R.id.F_status)};
+
+            final TextView warningText = layout.findViewById(R.id.warning_text);
+            String warning = "These Scouters have not sent in data: ";
+            for (int i = 0; i < statuses.length; i++) {
+                if (!statuses[i].isActivated()) {
+                    if (i == 0)
+                        warning += "A, ";
+                    else if (i == 1)
+                        warning += "B, ";
+                    else if (i == 2)
+                        warning += "C, ";
+                    else if (i == 3)
+                        warning += "D, ";
+                    else if (i == 4)
+                        warning += "E, ";
+                    else if (i == 5)
+                        warning += "F";
+                }
+            }
+
+            //Cancel button closes Toast
+            final Button cancelButton = layout.findViewById(R.id.cancelButton);
+            cancelButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    toastCanceled = true;
+                }
+            });
+
+            final Button uploadButton = layout.findViewById(R.id.uploadConfirmButton);
+            uploadButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    ble.uploadContributorData();
+                    warningText.setVisibility(View.INVISIBLE);
+                    //uploadButton.setVisibility(View.GONE);
+                    //cancelButton.setVisibility(View.GONE);
+                    mainToastText.setText("Data Uploaded.");
+                    mainToastText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    toastUploaded = true;
+                }
+            });*/
+
+        }
+    }
 }

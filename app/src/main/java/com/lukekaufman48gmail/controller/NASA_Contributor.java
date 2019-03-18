@@ -138,6 +138,7 @@ public class NASA_Contributor {
 	slotRefresh();
     }
 
+
     public void disconnect()
     {
 	connected = false;

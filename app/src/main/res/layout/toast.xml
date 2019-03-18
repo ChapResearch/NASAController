@@ -1,0 +1,84 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toast_layout_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/toastbackground"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/toast_text"
+        android:layout_width="188dp"
+        android:layout_height="85dp"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginRight="5sp"
+        android:gravity="center"
+        android:text="Are you sure you want to upload?"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/warning_text"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5sp"
+        android:gravity="center"
+        android:text="more sample text that im putting here for testing"
+        android:textAlignment="center"
+        android:textColor="@color/warningtextcolor"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|right|center_vertical"
+            android:layout_margin="0sp"
+            android:layout_marginLeft="12sp"
+            android:layout_marginRight="8sp"
+            android:layout_marginTop="0sp"
+            android:layout_weight="1"
+            android:background="#007777ff"
+            android:fontFamily="sans-serif"
+            android:gravity="center_vertical"
+            android:padding="0sp"
+            android:text="Cancel"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <Button
+            android:id="@+id/uploadConfirmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical|center"
+            android:layout_margin="0sp"
+            android:layout_marginLeft="12sp"
+            android:layout_marginRight="8sp"
+            android:layout_marginTop="0sp"
+            android:layout_weight="1"
+            android:background="#007777ff"
+            android:fontFamily="sans-serif"
+            android:gravity="center_vertical"
+            android:padding="0sp"
+            android:text="Upload"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+    </LinearLayout>
+
+</LinearLayout>

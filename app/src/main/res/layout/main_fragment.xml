@@ -10,9 +10,10 @@
 
 
         <TableLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/steel_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/background_gray"
+            android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -22,13 +23,12 @@
                 android:id="@+id/Contributor_A_display"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/pastel_gray"
+                android:layout_marginBottom="8sp"
+                android:layout_marginEnd="8sp"
+                android:layout_marginStart="8sp"
+                android:layout_marginTop="8sp"
+                android:background="@drawable/border"
                 android:fadingEdge="horizontal|vertical"
-                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -36,16 +36,17 @@
                 <TextView
                     android:id="@+id/A"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="50sp"
                     android:layout_gravity="center_vertical|center_horizontal"
-                    android:layout_margin="7dp"
+                    android:layout_margin="7sp"
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
                     android:text="A"
                     android:textAlignment="center"
-                    android:textSize="20dp"
-                    android:textStyle="normal"
-                    tools:padding="0dp" />
+                    android:textColor="#ffffff"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    tools:padding="0sp" />
 
                 <TextView
                     android:id="@+id/A_name"
@@ -55,11 +56,13 @@
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
                     android:maxLength="9"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:text="ExampName"
+                    android:paddingLeft="5sp"
+                    android:paddingRight="5sp"
+                    android:text=" No Name "
                     android:textAlignment="center"
-                    android:textSize="16sp" />
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/A_teamNumber"
@@ -68,29 +71,32 @@
                     android:layout_gravity="center_vertical|center"
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:maxLength="6"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
                     android:text="#####"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <RadioButton
                     android:id="@+id/A_status"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textAlignment="center"
-                    android:textColorLink="@color/steel_blue" />
+                    android:layout_marginLeft="12sp"
+                    android:layout_marginRight="12sp"
+                    android:buttonTint="#ffffff"
+                    android:textAlignment="center" />
 
                 <ImageView
                     android:id="@+id/A_color"
-                    android:layout_width="33dp"
-                    android:layout_height="41dp"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/steel_blue"
+                    android:layout_width="50sp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="4sp"
+                    android:background="@color/transparent"
                     android:fadingEdge="horizontal|vertical"
-                    android:fadingEdgeLength="5dp"
+                    android:fadingEdgeLength="5sp"
                     android:filterTouchesWhenObscured="false"
                     android:requiresFadingEdge="horizontal|vertical" />
 
@@ -100,11 +106,11 @@
                 android:id="@+id/Contributor_B_display"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/pastel_gray"
+                android:layout_marginBottom="8sp"
+                android:layout_marginEnd="8sp"
+                android:layout_marginStart="8sp"
+                android:layout_marginTop="8sp"
+                android:background="@drawable/border"
                 android:fadingEdge="horizontal|vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -113,16 +119,17 @@
                 <TextView
                     android:id="@+id/b"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="50sp"
                     android:layout_gravity="center_vertical|center_horizontal"
-                    android:layout_margin="7dp"
+                    android:layout_margin="7sp"
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
                     android:text="B"
                     android:textAlignment="center"
-                    android:textSize="20dp"
-                    android:textStyle="normal"
-                    tools:padding="0dp" />
+                    android:textColor="#ffffff"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    tools:padding="0sp" />
 
                 <TextView
                     android:id="@+id/B_name"
@@ -132,11 +139,13 @@
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
                     android:maxLength="9"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:text="ExampName"
+                    android:paddingLeft="5sp"
+                    android:paddingRight="5sp"
+                    android:text=" No Name "
                     android:textAlignment="center"
-                    android:textSize="16sp" />
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/B_teamNumber"
@@ -145,29 +154,36 @@
                     android:layout_gravity="center_vertical|center"
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:maxLength="6"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
                     android:text="#####"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <RadioButton
                     android:id="@+id/B_status"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textAlignment="center"
-                    android:textColorLink="@color/steel_blue" />
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="10sp"
+                    android:buttonTint="#ffffff"
+                    android:textAlignment="center" />
 
                 <ImageView
                     android:id="@+id/B_color"
-                    android:layout_width="33dp"
-                    android:layout_height="41dp"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/steel_blue"
+                    android:layout_width="50sp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="4sp"
+                    android:layout_marginBottom="0sp"
+                    android:layout_marginLeft="8sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_marginTop="10sp"
+                    android:background="@color/transparent"
                     android:fadingEdge="horizontal|vertical"
-                    android:fadingEdgeLength="5dp"
+                    android:fadingEdgeLength="5sp"
                     android:filterTouchesWhenObscured="false"
                     android:requiresFadingEdge="horizontal|vertical" />
 
@@ -177,11 +193,11 @@
                 android:id="@+id/Contributor_C_display"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/pastel_gray"
+                android:layout_marginBottom="8sp"
+                android:layout_marginEnd="8sp"
+                android:layout_marginStart="8sp"
+                android:layout_marginTop="8sp"
+                android:background="@drawable/border"
                 android:fadingEdge="horizontal|vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -190,16 +206,17 @@
                 <TextView
                     android:id="@+id/c"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="50sp"
                     android:layout_gravity="center_vertical|center_horizontal"
-                    android:layout_margin="7dp"
+                    android:layout_margin="7sp"
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
                     android:text="C"
                     android:textAlignment="center"
-                    android:textSize="20dp"
-                    android:textStyle="normal"
-                    tools:padding="0dp" />
+                    android:textColor="#ffffff"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    tools:padding="0sp" />
 
                 <TextView
                     android:id="@+id/C_name"
@@ -209,11 +226,13 @@
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
                     android:maxLength="9"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:text="ExampName"
+                    android:paddingLeft="5sp"
+                    android:paddingRight="5sp"
+                    android:text=" No Name "
                     android:textAlignment="center"
-                    android:textSize="16sp" />
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/C_teamNumber"
@@ -222,27 +241,33 @@
                     android:layout_gravity="center_vertical|center"
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:maxLength="6"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
                     android:text="#####"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <RadioButton
                     android:id="@+id/C_status"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textAlignment="center"
-                    android:textColorLink="@color/steel_blue" />
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="10sp"
+                    android:buttonTint="#ffffff"
+                    android:textAlignment="center" />
 
                 <ImageView
                     android:id="@+id/C_color"
-                    android:layout_width="33dp"
-                    android:layout_height="41dp"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/steel_blue"
+                    android:layout_height="match_parent"
+                    android:layout_margin="4sp"
+                    android:layout_marginBottom="0sp"
+                    android:layout_marginLeft="8sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_marginTop="10sp"
+                    android:background="@color/transparent"
                     android:filterTouchesWhenObscured="false"
                     android:requiresFadingEdge="horizontal|vertical" />
 
@@ -252,11 +277,11 @@
                 android:id="@+id/Contributor_D_display"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/pastel_gray"
+                android:layout_marginBottom="8sp"
+                android:layout_marginEnd="8sp"
+                android:layout_marginStart="8sp"
+                android:layout_marginTop="8sp"
+                android:background="@drawable/border"
                 android:fadingEdge="horizontal|vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.476"
@@ -266,16 +291,17 @@
                 <TextView
                     android:id="@+id/d"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="50sp"
                     android:layout_gravity="center_vertical|center_horizontal"
-                    android:layout_margin="7dp"
+                    android:layout_margin="7sp"
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
                     android:text="D"
                     android:textAlignment="center"
-                    android:textSize="20dp"
-                    android:textStyle="normal"
-                    tools:padding="0dp" />
+                    android:textColor="#ffffff"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    tools:padding="0sp" />
 
                 <TextView
                     android:id="@+id/D_name"
@@ -285,11 +311,13 @@
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
                     android:maxLength="9"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:text="ExampName"
+                    android:paddingLeft="5sp"
+                    android:paddingRight="5sp"
+                    android:text=" No Name "
                     android:textAlignment="center"
-                    android:textSize="16sp" />
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/D_teamNumber"
@@ -298,29 +326,35 @@
                     android:layout_gravity="center_vertical|center"
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:maxLength="6"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
                     android:text="#####"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <RadioButton
                     android:id="@+id/D_status"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textAlignment="center"
-                    android:textColorLink="@color/steel_blue" />
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="10sp"
+                    android:buttonTint="#ffffff"
+                    android:textAlignment="center" />
 
                 <ImageView
                     android:id="@+id/D_color"
-                    android:layout_width="33dp"
-                    android:layout_height="41dp"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/steel_blue"
+                    android:layout_height="match_parent"
+                    android:layout_margin="4sp"
+                    android:layout_marginBottom="0sp"
+                    android:layout_marginLeft="8sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_marginTop="10sp"
+                    android:background="@color/transparent"
                     android:fadingEdge="horizontal|vertical"
-                    android:fadingEdgeLength="5dp"
+                    android:fadingEdgeLength="5sp"
                     android:filterTouchesWhenObscured="false"
                     android:requiresFadingEdge="horizontal|vertical" />
 
@@ -330,11 +364,11 @@
                 android:id="@+id/Contributor_E_display"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/pastel_gray"
+                android:layout_marginBottom="8sp"
+                android:layout_marginEnd="8sp"
+                android:layout_marginStart="8sp"
+                android:layout_marginTop="8sp"
+                android:background="@drawable/border"
                 android:fadingEdge="horizontal|vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -343,16 +377,17 @@
                 <TextView
                     android:id="@+id/e"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="50sp"
                     android:layout_gravity="center_vertical|center_horizontal"
-                    android:layout_margin="7dp"
+                    android:layout_margin="7sp"
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
                     android:text="E"
                     android:textAlignment="center"
-                    android:textSize="20dp"
-                    android:textStyle="normal"
-                    tools:padding="0dp" />
+                    android:textColor="#ffffff"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    tools:padding="0sp" />
 
                 <TextView
                     android:id="@+id/E_name"
@@ -362,11 +397,13 @@
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
                     android:maxLength="9"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:text="ExampName"
+                    android:paddingLeft="5sp"
+                    android:paddingRight="5sp"
+                    android:text=" No Name "
                     android:textAlignment="center"
-                    android:textSize="16sp" />
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/E_teamNumber"
@@ -375,29 +412,35 @@
                     android:layout_gravity="center_vertical|center"
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:maxLength="6"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
                     android:text="#####"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <RadioButton
                     android:id="@+id/E_status"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textAlignment="center"
-                    android:textColorLink="@color/steel_blue" />
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="10sp"
+                    android:buttonTint="#ffffff"
+                    android:textAlignment="center" />
 
                 <ImageView
                     android:id="@+id/E_color"
-                    android:layout_width="33dp"
-                    android:layout_height="41dp"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/steel_blue"
+                    android:layout_height="match_parent"
+                    android:layout_margin="4sp"
+                    android:layout_marginBottom="0sp"
+                    android:layout_marginLeft="8sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_marginTop="10sp"
+                    android:background="@color/transparent"
                     android:fadingEdge="horizontal|vertical"
-                    android:fadingEdgeLength="5dp"
+                    android:fadingEdgeLength="5sp"
                     android:filterTouchesWhenObscured="false"
                     android:requiresFadingEdge="horizontal|vertical" />
 
@@ -407,11 +450,11 @@
                 android:id="@+id/Contributor_F_display"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/pastel_gray"
+                android:layout_marginBottom="8sp"
+                android:layout_marginEnd="8sp"
+                android:layout_marginStart="8sp"
+                android:layout_marginTop="8sp"
+                android:background="@drawable/border"
                 android:fadingEdge="horizontal|vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.476"
@@ -421,16 +464,17 @@
                 <TextView
                     android:id="@+id/f"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_height="50sp"
                     android:layout_gravity="center_vertical|center_horizontal"
-                    android:layout_margin="7dp"
+                    android:layout_margin="7sp"
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
                     android:text="F"
                     android:textAlignment="center"
-                    android:textSize="20dp"
-                    android:textStyle="normal"
-                    tools:padding="0dp" />
+                    android:textColor="#ffffff"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    tools:padding="0sp" />
 
                 <TextView
                     android:id="@+id/F_name"
@@ -440,11 +484,13 @@
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
                     android:maxLength="9"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:text="ExampName"
+                    android:paddingLeft="5sp"
+                    android:paddingRight="5sp"
+                    android:text=" No Name "
                     android:textAlignment="center"
-                    android:textSize="16sp" />
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/F_teamNumber"
@@ -453,29 +499,35 @@
                     android:layout_gravity="center_vertical|center"
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:maxLength="6"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
                     android:text="#####"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <RadioButton
                     android:id="@+id/F_status"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textAlignment="center"
-                    android:textColorLink="@color/steel_blue" />
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="10sp"
+                    android:buttonTint="#ffffff"
+                    android:textAlignment="center" />
 
                 <ImageView
                     android:id="@+id/F_color"
-                    android:layout_width="33dp"
-                    android:layout_height="41dp"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/steel_blue"
+                    android:layout_height="match_parent"
+                    android:layout_margin="4sp"
+                    android:layout_marginBottom="0sp"
+                    android:layout_marginLeft="8sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_marginTop="10sp"
+                    android:background="@color/transparent"
                     android:fadingEdge="horizontal|vertical"
-                    android:fadingEdgeLength="5dp"
+                    android:fadingEdgeLength="5sp"
                     android:filterTouchesWhenObscured="false"
                     android:requiresFadingEdge="horizontal|vertical" />
 
