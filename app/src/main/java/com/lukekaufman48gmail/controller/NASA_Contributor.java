@@ -34,12 +34,16 @@ public class NASA_Contributor {
 
     private NASA_DB nasaDB;
 
+    private NASA_BLE_Interface NASAcallbacks;
+
     //    public static final int timeout = 60;	// 60 second timeout before a slot is considered open (if needed)
     public static final int timeout = 0;	// disable the timeout for now
 
-    public NASA_Contributor()
+    public NASA_Contributor(NASA_BLE_Interface callbacks)
     {
-	nasaDB = new NASA_DB();
+	NASAcallbacks = callbacks;
+
+	nasaDB = new NASA_DB(NASAcallbacks);
 
 	connected = false;
 	timestamp = 0;
@@ -138,7 +142,6 @@ public class NASA_Contributor {
 	slotRefresh();
     }
 
-
     public void disconnect()
     {
 	connected = false;
@@ -167,18 +170,14 @@ public class NASA_Contributor {
     }
 
     //
-    // send() - sends this contributor's data up to the DB
+    // send() - sends this contributor's data up to the DB. The "slot" is there to
+    //          provide easier success/failure information.
     //
-    public void send(String year, String competition, String match)
+    public void send(int slot, String year, String competition, String match)
     {
 	if(hasData) {
-	    Log.v(TAG, "transmiting slot");	    
-	    nasaDB.send(year,teamNumber,competition,match,data);
+	    nasaDB.send(slot,year,teamNumber,competition,match,data);
 	}
     }
-
-    public boolean getHasData(){
-    	return hasData;
-	}
     
 }

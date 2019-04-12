@@ -31,8 +31,6 @@ public class NASA_BLE {
 
     private Context context;
 
-    private NASA_DB nasaDB;
-
     // the service itself has its UUID
     private static final UUID NASA_BLE_SERVICE_UUID = UUID.fromString("df85c229-277c-4070-97e3-abc1e134b6a1");
 
@@ -90,12 +88,13 @@ public class NASA_BLE {
     // CONSTRUCTOR - When creating the NASA_BLE object, go ahead and define all of the
     //               services and descriptors.
     //
-    public NASA_BLE(Context incomingContext)
+    public NASA_BLE(Context incomingContext,NASA_BLE_Interface callbacks)
     {
 	context = incomingContext;
-
+	NASAcallbacks = callbacks;
+	
 	for(int i=0; i < 6; i++) {
-	    contributors[i] = new NASA_Contributor();
+	    contributors[i] = new NASA_Contributor(NASAcallbacks);
 	}
 	
 	_initialize();
@@ -172,6 +171,7 @@ public class NASA_BLE {
 			    NASAcallbacks.NASA_teamNumber(slot,"");
 			    NASAcallbacks.NASA_teamColor(slot,0);
 			    NASAcallbacks.NASA_dataTransmission(slot,false,"");
+			    NASAcallbacks.NASA_dataUploadStatus(slot,false);
 			}
 		    });
 	    }
@@ -204,6 +204,7 @@ public class NASA_BLE {
 			    NASAcallbacks.NASA_teamNumber(slot,"");
 			    NASAcallbacks.NASA_teamColor(slot,0);
 			    NASAcallbacks.NASA_dataTransmission(slot,false,"");
+			    NASAcallbacks.NASA_dataUploadStatus(slot,false);
 			}
 		    });
 		
@@ -213,16 +214,17 @@ public class NASA_BLE {
 
     //
     // transmitContributors() - sends the data for each Contributor who has specified data, up to
-    //                          the database.
+    //                          the database. The callback will be called with
     //
     public void transmitContributors()
     {
 	for(int i=0; i < contributors.length; i++) {
 	    if(contributors[i].connected) {
-		Log.v(TAG, "transmit slot " + i);
-		contributors[i].send(NASAcallbacks.NASA_year(),
+		contributors[i].send(i,
+				     NASAcallbacks.NASA_year(),
 				     NASAcallbacks.NASA_competition(),
 				     NASAcallbacks.NASA_match());
+		Log.v(TAG, "transmit slot " + i);
 	    }
 	}
     }
@@ -243,29 +245,6 @@ public class NASA_BLE {
 	}
     }
 
-    public boolean[] getContributorDataStatus()
-	{
-
-		boolean AhasIt = false;
-		boolean BhasIt = false;
-		boolean ChasIt = false;
-		boolean DhasIt = false;
-		boolean EhasIt = false;
-		boolean FhasIt = false;
-
-		if(contributors[0].getHasData()){AhasIt=true;}
-		if(contributors[1].getHasData()){BhasIt=true;}
-		if(contributors[2].getHasData()){ChasIt=true;}
-		if(contributors[3].getHasData()){DhasIt=true;}
-		if(contributors[4].getHasData()){EhasIt=true;}
-		if(contributors[5].getHasData()){FhasIt=true;}
-
-		boolean[] dataStatuses = {AhasIt, BhasIt, ChasIt, DhasIt, EhasIt, FhasIt};
-
-		return dataStatuses;
-	}
-
-
     public int connections()
     {
 	return(mBluetoothManager.getConnectedDevices(BluetoothGatt.GATT_SERVER).size());
@@ -276,10 +255,8 @@ public class NASA_BLE {
           nasaGATTserver.close();
     }
     
-    public void startServer(NASA_BLE_Interface callbacks)
+    public void startServer()
     {
-	NASAcallbacks = callbacks;
-	
 	nasaGATTserver = mBluetoothManager.openGattServer(context, mGattServerCallback);
 
 	// CLEAR ALL CONNECTIONS!  This SHOULD work, but as seen in many references on
@@ -467,11 +444,10 @@ public class NASA_BLE {
 		) {
 			super.onCharacteristicReadRequest(device, requestId, offset, characteristic);
 
-			Log.d(TAG, "Device tried to READ characteristic: " + characteristic.getUuid());
+			Log.d(TAG, "Device tried to read characteristic: " + characteristic.getUuid());
 
 			// we don't support offsetting into characteristics
 			if (offset != 0) {
-				Log.v("LUKER", "GOODBYE");
 				nasaGATTserver.sendResponse(device, requestId, BluetoothGatt.GATT_INVALID_OFFSET, offset, null);
 				return;
 			} else {

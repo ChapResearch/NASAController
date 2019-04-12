@@ -45,6 +45,15 @@ public class MainActivity extends AppCompatActivity {
     NASA_BLE ble;
     TextView matchNum_field;
 
+    // dataStatus - monitors the current status of data that has been transmitted to the Controller
+    //   from the contributors.  True means "hasData".  In java, boolean arrays init to false;
+    private boolean[] dataStatus = new boolean[6];
+
+    private void dataStatusClear() {
+        for(int i=0; i < dataStatus.length; i++) {
+            dataStatus[i] = false;
+        }
+    }
 
     private final NASA_BLE_Interface bleCallbacks = new NASA_BLE_Interface() {
 
@@ -236,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
             box.setChecked(finalChunk);
+	    dataStatus[slot] = finalChunk;
         }
 
         @Override
@@ -295,8 +305,8 @@ public class MainActivity extends AppCompatActivity {
         loadFragment(configFragment);
         Log.v("LUKER", "On create for MainActivity");
 
-        ble = new NASA_BLE(this);
-        ble.startServer(bleCallbacks);
+        ble = new NASA_BLE(this,bleCallbacks);
+        ble.startServer();
 
 
         //Buttons to load different fragments
@@ -347,6 +357,7 @@ public class MainActivity extends AppCompatActivity {
                                       int before, int count) {
                 ble.resetContributors();
                 ble.matchUpdateContributors();
+		dataStatusClear();
             }
         });
 
@@ -359,6 +370,7 @@ public class MainActivity extends AppCompatActivity {
                         matchNum_field.setText("" + num);
                         ble.resetContributors();
                         ble.matchUpdateContributors();
+			dataStatusClear();
                     }
                 }
             }
@@ -374,7 +386,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 ble.resetContributors();
                 ble.matchUpdateContributors();
-
+		dataStatusClear();
             }
         });
         // Match Number Counter ^^^
@@ -459,7 +471,7 @@ public class MainActivity extends AppCompatActivity {
         button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.brightgreen));
 
         //fade in and out animation
-        final Animation fade = AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade);
+        final Animation fade = AnimationUtils.loadAnimation(getBaseContext(), R.anim.shake);
 
         //
         timerOff = false;
@@ -485,8 +497,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void playBruh(){
-        MediaPlayer ring= MediaPlayer.create(MainActivity.this,R.raw.bruh);
-        ring.start();
+        // MediaPlayer ring= MediaPlayer.create(MainActivity.this,R.raw.bruh);
+        // ring.start();
     }
 
     public void makeToast(String message, int duration){
@@ -508,25 +520,19 @@ public class MainActivity extends AppCompatActivity {
             String warning = "These Scouters have not sent in data: ";
             String append = "";
 
-            boolean[] dataStatuses= ble.getContributorDataStatus();
-            for(int i=0; i<dataStatuses.length; i++){
-                    if(!dataStatuses[0] && i==0)
-                        append += "A, ";
-                    else if(!dataStatuses[1] && i==1)
-                        append += "B, ";
-                    else if(!dataStatuses[2] && i==2)
-                        append += "C, ";
-                    else if(!dataStatuses[3] && i==3)
-                        append += "D, ";
-                    else if(!dataStatuses[4] && i==4)
-                        append += "E, ";
-                    else if(!dataStatuses[5] && i==5)
-                        append += "F, ";
-                }
-
-            if(append.length()>2)
-            append = append.substring(0, append.length() - 2); //trim the appendage of ", "
-
+	    for(int i=0; i < dataStatus.length; i++) {
+		if(!dataStatus[i]) {
+		    if(append.length()>0) { append += ", "; }
+		    switch(i) {
+		    case 0: append += "A"; break;
+		    case 1: append += "B"; break;
+		    case 2: append += "C"; break;
+		    case 3: append += "D"; break;
+		    case 4: append += "E"; break;
+		    case 5: append += "F"; break;
+		    }
+		}
+	    }
 
             Log.v("LUKER", append);
             warning = warning + append;
