@@ -14,6 +14,7 @@ import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Base64;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -29,44 +30,44 @@ public class HttpHandler {
 
     public String makeServiceCall(String reqUrl) {
         String response = null;
+
+        android.os.StrictMode.ThreadPolicy policy = new android.os.StrictMode.ThreadPolicy.Builder().permitAll().build();
+        android.os.StrictMode.setThreadPolicy(policy);
+
         try {
             Log.v("LUKER", "Before auth");
-            Authenticator.setDefault (new Authenticator() {
+            Authenticator.setDefault(new Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication (APIusername, APIkey.toCharArray());
+                    return new PasswordAuthentication(APIusername, APIkey.toCharArray());
                 }
             });
             Log.v("LUKER", "After auth");
 
             URL url = new URL(reqUrl);
             Log.v("LUKER", "Before url open");
-            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-            Log.v("LUKER", "After url open");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-            // read the response
-            Log.v("LUKER", "Before IS creation");
-            if(conn != null) {
-                Log.v("LUKER", "CONNECTION IS NOT NULL");
-                InputStream in = conn.getInputStream();
-                Log.v("LUKER", "CONNECTION IS NOT NULL AFTER IS CREATION");
-                if (in != null) {
-                    Log.v("LUKER", "After IS creation: " + convertStreamToString(in));
-                    Log.v("LUKER", "INPUT STREAM IS NOT NULL");
-                    response = convertStreamToString(in);
-                }
+            conn.setRequestMethod("GET");
+            conn.setReadTimeout(10 * 1000);
+            //conn.connect();
+
+            Log.v("LUKER","So far so good");
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            Log.v("LUKER","after the getInputString()");
+
+            StringBuilder stringBuilder = new StringBuilder();
+
+            String line = null;
+
+            while((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
             }
-
-
-
-        } catch (MalformedURLException e) {
-            Log.e(TAG, "MalformedURLException: " + e.getMessage());
-        } catch (ProtocolException e) {
-            Log.e(TAG, "ProtocolException: " + e.getMessage());
-        } catch (IOException e) {
-            Log.e(TAG, "IOException: " + e.getMessage());
+            response = stringBuilder.toString();
         }
         catch (Exception e) {
-            Log.e(TAG, "Exception: " + e.getMessage());
+            Log.e("LUKER", "Exceptional: " + e.getMessage());
         }
         Log.v("LUKER", "Before return response");
         return response;
