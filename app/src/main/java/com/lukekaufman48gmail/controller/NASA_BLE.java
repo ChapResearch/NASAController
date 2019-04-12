@@ -243,6 +243,29 @@ public class NASA_BLE {
 	}
     }
 
+    public boolean[] getContributorDataStatus()
+	{
+
+		boolean AhasIt = false;
+		boolean BhasIt = false;
+		boolean ChasIt = false;
+		boolean DhasIt = false;
+		boolean EhasIt = false;
+		boolean FhasIt = false;
+
+		if(contributors[0].getHasData()){AhasIt=true;}
+		if(contributors[1].getHasData()){BhasIt=true;}
+		if(contributors[2].getHasData()){ChasIt=true;}
+		if(contributors[3].getHasData()){DhasIt=true;}
+		if(contributors[4].getHasData()){EhasIt=true;}
+		if(contributors[5].getHasData()){FhasIt=true;}
+
+		boolean[] dataStatuses = {AhasIt, BhasIt, ChasIt, DhasIt, EhasIt, FhasIt};
+
+		return dataStatuses;
+	}
+
+
     public int connections()
     {
 	return(mBluetoothManager.getConnectedDevices(BluetoothGatt.GATT_SERVER).size());

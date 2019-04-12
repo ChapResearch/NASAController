@@ -176,5 +176,9 @@ public class NASA_Contributor {
 	    nasaDB.send(year,teamNumber,competition,match,data);
 	}
     }
+
+    public boolean getHasData(){
+    	return hasData;
+	}
     
 }

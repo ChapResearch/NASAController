@@ -7,7 +7,7 @@
     <color name="red_tint">#ce6d6d</color>
     <color name="green_tint">#7e9d7e</color>
     <color name="blue_tint">#2e5fff</color>
-    <color name="background_gray">#eeeeee</color>
+    <color name="background_gray">#ffEEEE</color>
     <color name="lighter_blue">#775858ff</color>
     <color name="claimedborder">#5555ff</color>
     <color name="border">#665555ff</color>
@@ -17,4 +17,6 @@
     <color name="toastborder">#dd2a277c</color>
     <color name="toastbackground">#ef5d74be</color>
     <color name="warningtextcolor">#c23838</color>
+    <color name="brightgreen">#25bc3e</color>
+    <color name="white">#ffffff</color>
     </resources>

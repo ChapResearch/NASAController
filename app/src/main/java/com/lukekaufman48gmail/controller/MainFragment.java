@@ -30,8 +30,6 @@ import java.util.ArrayList;
 
 public class MainFragment extends Fragment {
 
-    public static final ArrayList<Contributor> contributors = new ArrayList<>();
-
     private final String BUNDLE= "BUNDLED";
 
     private final String A_CN_KEY = "ACN";
@@ -71,6 +69,8 @@ public class MainFragment extends Fragment {
     private final String F_CS_KEY = "FCS";
 //
     private Bundle savedState = null;
+    private TextView MT;
+
     private TextView cnA;
     private TextView tnA;
     private ImageView cA;
@@ -119,6 +119,7 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.main_fragment, container, false);
+
 
         cnA = view.findViewById(R.id.A_name);
         tnA = view.findViewById(R.id.A_teamNumber);

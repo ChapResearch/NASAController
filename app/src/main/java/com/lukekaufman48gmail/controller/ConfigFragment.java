@@ -2,12 +2,15 @@ package com.lukekaufman48gmail.controller;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +35,8 @@ public class ConfigFragment extends Fragment {
     private final static String YEAR_KEY_MAP_STATE = "YEAR";
     private final static String COMPETITION_KEY_MAP_STATE = "COMPETITION";
     private final static String PASSWORD_KEY_MAP_STATE = "PASSWORD";
+    private final static String MATCHTIME_KEY_MAP_STATE = "MATCHTIME";
+    public FMSInterface fms;
     //public static String[] configContents = {"Luke","2019","Home","doopy"};
     NASA_BLE ble;
     NASA_BLE_Interface ble_int;
@@ -41,6 +46,9 @@ public class ConfigFragment extends Fragment {
     private TextView year;
     private TextView competition;
     private TextView password;
+    private TextView matchTimeField;
+    private Button testButton;
+    public static int matchTimeSec;
     public static CharSequence[] configContents;
     //public static MainFragment mainFragment = MainActivity.mainFragment;
 
@@ -58,6 +66,39 @@ public class ConfigFragment extends Fragment {
         competition = view.findViewById(R.id.competition_field);
         year = view.findViewById(R.id.year_field);
         controllerName = view.findViewById(R.id.controllerName_field);
+        matchTimeField = view.findViewById(R.id.matchtime_field);
+
+
+        testButton = view.findViewById(R.id.test_button);
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fms = new FMSInterface();
+                fms.readJSON(getContext());
+            }
+        });
+
+        matchTimeField.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(!matchTimeField.getText().toString().trim().equals(""))
+                    matchTimeSec = Integer.parseInt(matchTimeField.getText().toString().trim());
+                else
+                    matchTimeSec = 0;
+            }
+        });
 
         if(savedInstanceState != null && savedState == null) {
             savedState = savedInstanceState.getBundle(BUNDLE_KEY_MAP_STATE);
@@ -67,6 +108,7 @@ public class ConfigFragment extends Fragment {
             year.setText(savedState.getCharSequence(YEAR_KEY_MAP_STATE));
             competition.setText(savedState.getCharSequence(COMPETITION_KEY_MAP_STATE));
             password.setText(savedState.getCharSequence(PASSWORD_KEY_MAP_STATE));
+            matchTimeField.setText(Integer.toString(savedState.getInt(MATCHTIME_KEY_MAP_STATE)));
         }
         savedState = null;
         return view;
@@ -77,16 +119,18 @@ public class ConfigFragment extends Fragment {
     public void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         Log.v("LUKER", "On create for Config Fragment");
+
+
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         savedState = saveState();
-       controllerName = null;
-       year = null;
-       competition = null;
-       password = null;
+        controllerName = null;
+        year = null;
+        competition = null;
+        password = null;
     }
 
     private Bundle saveState() { /* called either from onDestroyView() or onSaveInstanceState() */
@@ -95,6 +139,8 @@ public class ConfigFragment extends Fragment {
         state.putCharSequence(YEAR_KEY_MAP_STATE, year.getText());
         state.putCharSequence(COMPETITION_KEY_MAP_STATE, competition.getText());
         state.putCharSequence(PASSWORD_KEY_MAP_STATE, password.getText());
+        if(!matchTimeField.getText().toString().trim().equals(""))
+        state.putInt(MATCHTIME_KEY_MAP_STATE, Integer.parseInt(matchTimeField.getText().toString().trim()));
 
         configContents = new String[4];
 
@@ -115,4 +161,3 @@ public class ConfigFragment extends Fragment {
     }
 
 }
-

@@ -15,7 +15,10 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.CycleInterpolator;
+import android.widget.ListAdapter;
 import android.widget.RadioButton;
+import android.widget.SimpleAdapter;
 import android.widget.TableRow;
 import android.view.View;
 import android.widget.TextView;
@@ -26,13 +29,22 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.FragmentManager;
 
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.w3c.dom.Text;
 
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     NASA_BLE ble;
     TextView matchNum_field;
+
 
     private final NASA_BLE_Interface bleCallbacks = new NASA_BLE_Interface() {
 
@@ -120,10 +132,9 @@ public class MainActivity extends AppCompatActivity{
                     break;
             }
             if (claimed) {
-                indicator.setBackground(ContextCompat.getDrawable(getBaseContext(),R.drawable.claimedborder));
-            }
-            else{
-                indicator.setBackground(ContextCompat.getDrawable(getBaseContext(),R.drawable.border));
+                indicator.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.claimedborder));
+            } else {
+                indicator.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.border));
                 CN.setText(" No Name ");
                 TN.setText("#####");
                 DS.setActivated(false);
@@ -159,13 +170,13 @@ public class MainActivity extends AppCompatActivity{
 
             switch (givenColor) {
                 case 1:
-                    teamColor.setBackgroundColor(ContextCompat.getColor(getBaseContext(),R.color.blue_tint));
+                    teamColor.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.blue_tint));
                     break;
                 case 2:
-                    teamColor.setBackgroundColor(ContextCompat.getColor(getBaseContext(),R.color.red_tint));
+                    teamColor.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.red_tint));
                     break;
                 default:
-                    teamColor.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.transparent));
+                    teamColor.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.colorborder));
                     break;
             }
 
@@ -200,25 +211,35 @@ public class MainActivity extends AppCompatActivity{
         }
 
         @Override
-        public void NASA_dataTransmission(int slot, boolean finalChunk, String jsonData)
-        {
+        public void NASA_dataTransmission(int slot, boolean finalChunk, String jsonData) {
             RadioButton box = null;
 
-            switch(slot) {
+            switch (slot) {
                 default:
-                case 0:    	box =  findViewById(R.id.A_status); break;
-                case 1:    	box =  findViewById(R.id.B_status); break;
-                case 2:    	box =  findViewById(R.id.C_status); break;
-                case 3:    	box =  findViewById(R.id.D_status); break;
-                case 4:    	box =  findViewById(R.id.E_status); break;
-                case 5:    	box =  findViewById(R.id.F_status); break;
+                case 0:
+                    box = findViewById(R.id.A_status);
+                    break;
+                case 1:
+                    box = findViewById(R.id.B_status);
+                    break;
+                case 2:
+                    box = findViewById(R.id.C_status);
+                    break;
+                case 3:
+                    box = findViewById(R.id.D_status);
+                    break;
+                case 4:
+                    box = findViewById(R.id.E_status);
+                    break;
+                case 5:
+                    box = findViewById(R.id.F_status);
+                    break;
             }
             box.setChecked(finalChunk);
         }
 
         @Override
-        public void NASA_dataUploadStatus(int slot, boolean success)
-        {
+        public void NASA_dataUploadStatus(int slot, boolean success) {
 
         }
 
@@ -252,13 +273,20 @@ public class MainActivity extends AppCompatActivity{
 
     };
 
+
     public MainFragment mainFragment = new MainFragment();
     public ConfigFragment configFragment = new ConfigFragment(bleCallbacks);
     public String conF = "conF";
     public String mainF = "mainF";
+    private String TAG = "LUKER";
     public String currentFragment;
     public boolean toastCanceled = false;
     public boolean toastUploaded = false;
+    public int matchTimeMilli = 150 * 1000; // default 2.5 min
+    public CountDownTimer animationCountdown;
+    public TextView MT; //match time display on Main Activity
+    public boolean timerOff; // checks if timer is Off
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -270,6 +298,8 @@ public class MainActivity extends AppCompatActivity{
         ble = new NASA_BLE(this);
         ble.startServer(bleCallbacks);
 
+
+        //Buttons to load different fragments
         final Button config_button = findViewById(R.id.config_button);
         config_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -277,58 +307,22 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        //Main Button
         final Button main_button = findViewById(R.id.main_button);
         main_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                //get Match Time from the Config page
+                if (ConfigFragment.matchTimeSec > 1 && ConfigFragment.matchTimeSec < 999)
+                    matchTimeMilli = ConfigFragment.matchTimeSec * 1000;
+                else {
+                    makeToast("Check match time on Config Screen", Toast.LENGTH_LONG);
+                }
+                MT = findViewById(R.id.matchTime);
+                if(timerOff)
+                MT.setText(" " + matchTimeMilli / 1000 + " sec");
                 loadFragment(mainFragment);
-
             }
         });
-
-
-
-        final Button startButton = findViewById(R.id.start_button);
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shakeAnim(startButton);
-                ble.startContributors();
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        "Time started",
-                        Toast.LENGTH_SHORT);
-
-                toast.show();
-            }
-        });
-
-        // monitor the stop button
-
-        final Button stopButton = findViewById(R.id.stop_button);
-        stopButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                shakeAnim(stopButton);
-                ble.stopContributors();
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        "Time Stopped",
-                        Toast.LENGTH_SHORT);
-
-                toast.show();
-            }
-        });
-
-
-        final Button uploadButton = findViewById(R.id.upload_button);
-        uploadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shakeAnim(uploadButton);
-                //ble.transmitContributors();
-                showUploadConfirmation();
-            }
-        });
-
 
         //Match Number Counter vvv
         final Button subtract_button = findViewById(R.id.subtract_button);
@@ -358,36 +352,73 @@ public class MainActivity extends AppCompatActivity{
 
         subtract_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(!matchNum_field.getText().toString().equals("")){
+                if (!matchNum_field.getText().toString().equals("")) {
                     int num = Integer.parseInt(matchNum_field.getText().toString());
-                        if(num>1){
-                            num--;
-                            matchNum_field.setText("" + num);
-                            ble.resetContributors();
-                            ble.matchUpdateContributors();
-                        }
+                    if (num > 1) {
+                        num--;
+                        matchNum_field.setText("" + num);
+                        ble.resetContributors();
+                        ble.matchUpdateContributors();
                     }
                 }
-            });
+            }
+        });
 
         add_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(matchNum_field.getText().toString().equals("")) {
+                if (matchNum_field.getText().toString().equals("")) {
                     matchNum_field.setText("" + 1);
-                }
-                else{
+                } else {
                     int num = Integer.parseInt(matchNum_field.getText().toString()) + 1;
                     matchNum_field.setText("" + num);
                 }
                 ble.resetContributors();
                 ble.matchUpdateContributors();
-                playBruh();
 
             }
         });
         // Match Number Counter ^^^
-    }
 
+        //upload button
+        final Button uploadButton = findViewById(R.id.upload_button);
+        uploadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shakeAnim(uploadButton);
+                //ble.transmitContributors();
+                showUploadConfirmation();
+                playBruh();
+            }
+        });
+
+        //start button
+        final Button startButton = findViewById(R.id.start_button);
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //start button animations
+                shakeAnim(startButton);
+                timerAnimation(startButton, matchTimeMilli);
+                //start timer
+                ble.startContributors();
+                makeToast("Timer Started", Toast.LENGTH_LONG);
+            }
+        });
+
+        //stop button
+        final Button stopButton = findViewById(R.id.stop_button);
+        stopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shakeAnim(stopButton);
+                ble.stopContributors();
+                if (!(animationCountdown == null)) {
+                    animationCountdown.onFinish();
+                    animationCountdown.cancel();
+                }
+            }
+        });
+    }
 
 
     private void loadFragment(Fragment fragment) {
@@ -407,19 +438,12 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    /*@Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.v("LUKER", "onDestroy for mainActivity");
-        ble.stopServer();
-
-    }*/
 
     //TODO - add confirmation of closing app will make you lose connections
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.v("LUKER", "onStop for mainActivity");
+        Log.v("LUKER", "onDestroy for mainActivity");
         ble.stopServer();
 
     }
@@ -429,135 +453,122 @@ public class MainActivity extends AppCompatActivity{
         b.startAnimation(shake);
     }
 
+    public void timerAnimation(Button b, final int matchTimeMilli){
+        //make text green
+        final Button button=b;
+        button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.brightgreen));
+
+        //fade in and out animation
+        final Animation fade = AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade);
+
+        //
+        timerOff = false;
+
+        //timer set for however long it is set in config page (match length) and checks every second
+        animationCountdown = new CountDownTimer(matchTimeMilli, 1000) {
+            int i=1;
+
+            public void onTick(long millisUntilFinished) {
+                button.startAnimation(fade);
+                MT.setText(" " + (matchTimeMilli/1000 - i) + " sec"); //makes MT display countdown with timer
+                i++;
+            }
+
+            public void onFinish() {
+                timerOff = true;
+                ble.stopContributors();
+                makeToast("Timer Stopped", Toast.LENGTH_LONG);
+                button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
+                MT.setText(" " +(matchTimeMilli/1000) + " sec"); //resets MT display
+            }
+        }.start();
+    }
+
     public void playBruh(){
         MediaPlayer ring= MediaPlayer.create(MainActivity.this,R.raw.bruh);
         ring.start();
+    }
+
+    public void makeToast(String message, int duration){
+        Toast toast = Toast.makeText(getApplicationContext(),
+                message,
+                duration);
+
+        toast.show();
     }
 
     public void showUploadConfirmation() {
 
         if (currentFragment == mainF) {
 
+            RadioButton a = findViewById(R.id.A_status);
+            Log.v("LUKER", "is a activated? :" + a.isActivated());
             //check which contributors have sent in data
-            RadioButton[] statuses = {findViewById(R.id.A_status),
-                    findViewById(R.id.B_status),
-                    findViewById(R.id.C_status),
-                    findViewById(R.id.D_status),
-                    findViewById(R.id.E_status),
-                    findViewById(R.id.F_status)
-            };
 
             String warning = "These Scouters have not sent in data: ";
             String append = "";
-            for (int i = 0; i < statuses.length; i++) {
-                if (!statuses[i].isActivated()) {
-                    if (i == 0)
+
+            boolean[] dataStatuses= ble.getContributorDataStatus();
+            for(int i=0; i<dataStatuses.length; i++){
+                    if(!dataStatuses[0] && i==0)
                         append += "A, ";
-                    else if (i == 1)
+                    else if(!dataStatuses[1] && i==1)
                         append += "B, ";
-                    else if (i == 2)
+                    else if(!dataStatuses[2] && i==2)
                         append += "C, ";
-                    else if (i == 3)
+                    else if(!dataStatuses[3] && i==3)
                         append += "D, ";
-                    else if (i == 4)
+                    else if(!dataStatuses[4] && i==4)
                         append += "E, ";
-                    else if (i == 5)
+                    else if(!dataStatuses[5] && i==5)
                         append += "F, ";
                 }
-            }
+
             if(append.length()>2)
-            append = append.substring(0, append.length() - 2);
+            append = append.substring(0, append.length() - 2); //trim the appendage of ", "
 
 
             Log.v("LUKER", append);
+            warning = warning + append;
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Are you sure you want to upload?");
 
-            warning = warning + append;
-            builder.setMessage(warning);
+
+            builder.setMessage(warning); // should be warning variable
             builder.setCancelable(false);
 
 
-            if(append.length()>1) {
-                builder.setPositiveButton("Upload", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which){
-                                ble.transmitContributors();
-                                Toast toast = Toast.makeText(getApplicationContext(),
-                                        "Data Uploaded",
-                                        Toast.LENGTH_SHORT);
+            builder.setPositiveButton("Upload", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which){
+                    //check for empty config fields
+                    boolean configCompleted = true;
+                    for(CharSequence content: ConfigFragment.configContents){
+                        if(content.toString().equals("")){
+                            configCompleted = false;
+                        }
+                    }
+                    //allow upload only if all fields are filled
 
-                                toast.show();
-                            }
-                });
-            }
+                    
+                    if(configCompleted){
+                        ble.transmitContributors();
+                        makeToast("Data Uploaded", Toast.LENGTH_SHORT);
+                    }
+                    else
+                        makeToast("Check Config page for empty field", Toast.LENGTH_LONG);
+
+                }
+            });
 
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    Toast toast = Toast.makeText(getApplicationContext(),
-                            "Data Upload Canceled",
-                            Toast.LENGTH_SHORT);
-
-                    toast.show();
+                    makeToast("Data Upload Canceled", Toast.LENGTH_SHORT);
                 }
             });
 
             builder.show();
-
-
-            /*LayoutInflater inflater = getLayoutInflater();
-            View layout = inflater.inflate(R.layout.toast,
-                    (ViewGroup) findViewById(R.id.toast_layout_root));
-
-            final TextView mainToastText = (TextView) layout.findViewById(R.id.toast_text);
-            mainToastText.setText("Are you sure you want to upload?");
-            RadioButton[] statuses = {findViewById(R.id.A_status),
-                    findViewById(R.id.B_status),
-                    findViewById(R.id.C_status),
-                    findViewById(R.id.D_status),
-                    findViewById(R.id.E_status),
-                    findViewById(R.id.F_status)};
-
-            final TextView warningText = layout.findViewById(R.id.warning_text);
-            String warning = "These Scouters have not sent in data: ";
-            for (int i = 0; i < statuses.length; i++) {
-                if (!statuses[i].isActivated()) {
-                    if (i == 0)
-                        warning += "A, ";
-                    else if (i == 1)
-                        warning += "B, ";
-                    else if (i == 2)
-                        warning += "C, ";
-                    else if (i == 3)
-                        warning += "D, ";
-                    else if (i == 4)
-                        warning += "E, ";
-                    else if (i == 5)
-                        warning += "F";
-                }
-            }
-
-            //Cancel button closes Toast
-            final Button cancelButton = layout.findViewById(R.id.cancelButton);
-            cancelButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    toastCanceled = true;
-                }
-            });
-
-            final Button uploadButton = layout.findViewById(R.id.uploadConfirmButton);
-            uploadButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    ble.uploadContributorData();
-                    warningText.setVisibility(View.INVISIBLE);
-                    //uploadButton.setVisibility(View.GONE);
-                    //cancelButton.setVisibility(View.GONE);
-                    mainToastText.setText("Data Uploaded.");
-                    mainToastText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    toastUploaded = true;
-                }
-            });*/
 
         }
     }
