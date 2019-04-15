@@ -43,8 +43,8 @@ public class NASA_Contributor {
     {
 	NASAcallbacks = callbacks;
 
-	nasaDB = new NASA_DB(NASAcallbacks);
-
+	//nasaDB = new NASA_DB(NASAcallbacks);
+		nasaDB = new NASA_DB(NASAcallbacks);
 	connected = false;
 	timestamp = 0;
 	device = null;

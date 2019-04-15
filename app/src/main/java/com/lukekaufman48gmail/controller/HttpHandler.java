@@ -51,47 +51,24 @@ public class HttpHandler {
             conn.setReadTimeout(10 * 1000);
             //conn.connect();
 
-            Log.v("LUKER","So far so good");
+            Log.v("LUKER", "So far so good");
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
-            Log.v("LUKER","after the getInputString()");
+            Log.v("LUKER", "after the getInputString()");
 
             StringBuilder stringBuilder = new StringBuilder();
 
             String line = null;
 
-            while((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line);
             }
             response = stringBuilder.toString();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.e("LUKER", "Exceptional: " + e.getMessage());
         }
         Log.v("LUKER", "Before return response");
         return response;
-    }
-
-    private String convertStreamToString(InputStream is) {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        StringBuilder sb = new StringBuilder();
-
-        String line;
-        try {
-            while ((line = reader.readLine()) != null) {
-                sb.append(line).append('\n');
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return sb.toString();
     }
 }

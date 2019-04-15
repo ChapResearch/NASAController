@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
             box.setChecked(finalChunk);
-	    dataStatus[slot] = finalChunk;
+	        dataStatus[slot] = finalChunk;
         }
 
         @Override
@@ -286,8 +286,10 @@ public class MainActivity extends AppCompatActivity {
 
     public MainFragment mainFragment = new MainFragment();
     public ConfigFragment configFragment = new ConfigFragment(bleCallbacks);
+    public CompetitionFragment competitionFragment = new CompetitionFragment(configFragment);
     public String conF = "conF";
     public String mainF = "mainF";
+    public String compF = "compF";
     private String TAG = "LUKER";
     public String currentFragment;
     public boolean toastCanceled = false;
@@ -302,6 +304,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MT = findViewById(R.id.matchTime);
         loadFragment(configFragment);
         Log.v("LUKER", "On create for MainActivity");
 
@@ -327,7 +330,7 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     makeToast("Check match time on Config Screen", Toast.LENGTH_LONG);
                 }
-                MT = findViewById(R.id.matchTime);
+
                 if(timerOff)
                 MT.setText(" " + matchTimeMilli / 1000 + " sec");
                 loadFragment(mainFragment);
@@ -471,7 +474,7 @@ public class MainActivity extends AppCompatActivity {
         button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.brightgreen));
 
         //fade in and out animation
-        final Animation fade = AnimationUtils.loadAnimation(getBaseContext(), R.anim.shake);
+        final Animation fade = AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade);
 
         //
         timerOff = false;
@@ -497,8 +500,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void playBruh(){
-        // MediaPlayer ring= MediaPlayer.create(MainActivity.this,R.raw.bruh);
-        // ring.start();
+         MediaPlayer ring= MediaPlayer.create(MainActivity.this,R.raw.bruh);
+         ring.start();
     }
 
     public void makeToast(String message, int duration){
@@ -577,5 +580,17 @@ public class MainActivity extends AppCompatActivity {
             builder.show();
 
         }
+    }
+
+    public Fragment getConfigFragment(){
+        return configFragment;
+    }
+
+    public Fragment getMainFragment(){
+        return mainFragment;
+    }
+
+    public Fragment getCompetitionFragment(){
+        return competitionFragment;
     }
 }

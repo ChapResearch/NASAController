@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="mainborder_blue">#5555ff</color>
-    <color name="light_blue">#7777ff</color>
+    <color name="light_blue">#8080e6</color>
     <color name="light_red">#ff7777</color>
     <color name="purple">#bbbbff</color>
     <color name="red_tint">#ce6d6d</color>
     <color name="green_tint">#7e9d7e</color>
     <color name="blue_tint">#2e5fff</color>
-    <color name="background_gray">#ffEEEE</color>
+    <color name="background_gray">#F1F1F1</color>
     <color name="lighter_blue">#775858ff</color>
     <color name="claimedborder">#5555ff</color>
     <color name="border">#665555ff</color>
@@ -19,4 +19,5 @@
     <color name="warningtextcolor">#c23838</color>
     <color name="brightgreen">#25bc3e</color>
     <color name="white">#ffffff</color>
+    <color name="greyed_out">#d5636363</color>
     </resources>

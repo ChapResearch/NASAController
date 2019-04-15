@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_view"
@@ -12,25 +12,17 @@
     <fragment
         android:id="@+id/fragment_place"
         android:name="com.lukekaufman48gmail.controller.BlankFragment"
-        android:layout_width="0sp"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="8sp"
-        android:layout_marginTop="8sp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top" />
+        android:layout_width="match_parent"
+        android:layout_height="298dp"
+        android:layout_above="@+id/bottom"
+        android:layout_below="@+id/top" />
 
     <TableRow
         android:id="@+id/top"
-        android:layout_width="0sp"
+        android:layout_width="match_parent"
         android:layout_height="56sp"
-        android:background="@drawable/mainborder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_alignParentTop="true"
+        android:background="@drawable/mainborder">
 
         <Button
             android:id="@+id/main_button"
@@ -130,11 +122,8 @@
         android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="56sp"
-        android:background="@drawable/mainborder"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/mainborder">
 
         <Button
             android:id="@+id/upload_button"
@@ -223,4 +212,4 @@
     </TableRow>
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
