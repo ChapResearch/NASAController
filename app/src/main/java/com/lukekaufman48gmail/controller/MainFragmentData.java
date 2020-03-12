@@ -9,7 +9,7 @@ import android.widget.TextView;
 public class MainFragmentData {
 
     private String contributorNameA; // contributor name
-    private String teamNumeberA; // team number
+    private String teamNumberA; // team number
     private int colorA; // color
     private boolean dataStatusA; // data status
     private boolean connectionStatusA; // the entire row
@@ -106,12 +106,12 @@ public class MainFragmentData {
         this.contributorNameA = contributorNameA;
     }
 
-    public String getTeamNumeberA() {
-        return teamNumeberA;
+    public String getTeamNumberA() {
+        return teamNumberA;
     }
 
-    public void setTeamNumeberA(String teamNumeberA) {
-        this.teamNumeberA = teamNumeberA;
+    public void setTeamNumberA(String teamNumberA) {
+        this.teamNumberA = teamNumberA;
     }
 
     public int getColorA() {
