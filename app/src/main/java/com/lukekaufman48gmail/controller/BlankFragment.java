@@ -1,6 +1,6 @@
 package com.lukekaufman48gmail.controller;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 
 public class BlankFragment extends Fragment {

@@ -9,9 +9,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -114,14 +114,23 @@ public class MainFragment extends Fragment {
     private int cFnum;
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.main_fragment, container, false);
 
+        Globals globals = (Globals) getActivity().getApplicationContext();
+        globals.setMainFragmentData(new MainFragmentData());
+
+        //used to refresh contributor background when switching to config and back to main while connected
+        for(int slot=0;slot<6;slot++)
+            //globals.getBleCallbacks().NASA_slotChange(slot, globals.getMainFragmentData().getConnectionStatus(slot));
 
         cnA = view.findViewById(R.id.A_name);
+        // ****find text change method for textView OR change textview to editText with editing disabled cn.addOnTextChanged ****
         tnA = view.findViewById(R.id.A_teamNumber);
         cA = view.findViewById(R.id.A_color);
         csA = view.findViewById(R.id.Contributor_A_display);
@@ -203,6 +212,7 @@ public class MainFragment extends Fragment {
             cnF.setText(savedState.getCharSequence(F_CN_KEY));
             tnF.setText(savedState.getCharSequence(F_TN_KEY));
             cF.setBackgroundColor(savedState.getInt(F_C_KEY));
+
         }
         savedState = null;
         return view;
@@ -260,41 +270,41 @@ public class MainFragment extends Fragment {
     private Bundle saveState() { /* called either from onDestroyView() or onSaveInstanceState() */
         Bundle state = new Bundle();
 
-        ColorDrawable coA = (ColorDrawable) cA.getBackground();
+        /*ColorDrawable coA = (ColorDrawable) cA.getBackground();
         ColorDrawable coB = (ColorDrawable) cB.getBackground();
         ColorDrawable coC = (ColorDrawable) cC.getBackground();
         ColorDrawable coD = (ColorDrawable) cD.getBackground();
         ColorDrawable coE = (ColorDrawable) cE.getBackground();
-        ColorDrawable coF = (ColorDrawable) cF.getBackground();
+        ColorDrawable coF = (ColorDrawable) cF.getBackground();*/
 
         state.putCharSequence(A_CN_KEY, cnA.getText());
         state.putCharSequence(A_TN_KEY, tnA.getText());
-        state.putInt(A_C_KEY, coA.getColor());
+        //state.putInt(A_C_KEY, coA.getColor());
         state.putBoolean(A_DS_KEY, dsA.isActivated());
 
         state.putCharSequence(B_CN_KEY, cnB.getText());
         state.putCharSequence(B_TN_KEY, tnB.getText());
-        state.putInt(B_C_KEY, coB.getColor());
+        //state.putInt(B_C_KEY, coB.getColor());
         state.putBoolean(B_DS_KEY, dsB.isActivated());
 
         state.putCharSequence(C_CN_KEY, cnC.getText());
         state.putCharSequence(C_TN_KEY, tnC.getText());
-        state.putInt(C_C_KEY,coC.getColor());
+        //state.putInt(C_C_KEY,coC.getColor());
         state.putBoolean(C_DS_KEY, dsC.isActivated());
 
         state.putCharSequence(D_CN_KEY, cnD.getText());
         state.putCharSequence(D_TN_KEY, tnD.getText());
-        state.putInt(D_C_KEY, coD.getColor());
+        //state.putInt(D_C_KEY, coD.getColor());
         state.putBoolean(D_DS_KEY, dsD.isActivated());
 
         state.putCharSequence(E_CN_KEY, cnE.getText());
         state.putCharSequence(E_TN_KEY, tnE.getText());
-        state.putInt(E_C_KEY, coE.getColor());
+        //state.putInt(E_C_KEY, coE.getColor());
         state.putBoolean(E_DS_KEY, dsE.isActivated());
 
         state.putCharSequence(F_CN_KEY, cnF.getText());
         state.putCharSequence(F_TN_KEY, tnF.getText());
-        state.putInt(F_C_KEY, coF.getColor());
+        //state.putInt(F_C_KEY, coF.getColor());
         state.putBoolean(F_DS_KEY, dsF.isActivated());
 
         return state;

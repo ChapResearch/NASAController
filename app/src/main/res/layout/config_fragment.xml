@@ -130,4 +130,17 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
+    <Button
+        android:id="@+id/fmsRefreshButton"
+        android:layout_width="90sp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/matchtime_field"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="161dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="162dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="FMS Refresh" />
+
 </RelativeLayout>

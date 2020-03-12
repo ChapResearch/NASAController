@@ -1,8 +1,8 @@
 package com.lukekaufman48gmail.controller;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,5 +63,21 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
     @Override
     public int getItemCount() {
         return competitionList.size();
+    }
+
+    public List<Competition> getCompetitionList() {
+        return competitionList;
+    }
+
+    public void setCompetitionList(List<Competition> competitionList) {
+        this.competitionList = competitionList;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 }

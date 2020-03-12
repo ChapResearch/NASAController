@@ -1,5 +1,7 @@
 package com.lukekaufman48gmail.controller;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 public class Competition {
@@ -11,34 +13,38 @@ public class Competition {
     private int dayOfYearEnd;
     //0=finished / 1-ongoing / 2-upcoming / 3-unknown
     private int state;
+    private ArrayList<MatchData> qualMatches;
+    private ArrayList<MatchData> playoffMatches;
 
-    public Competition(String code, String venue, String city, int dayOfYearStart, int dayOfYearEnd, int state){
+    public Competition(String code, String venue, String city, int dayOfYearStart, int dayOfYearEnd, int state, ArrayList<MatchData> qualMatches, ArrayList<MatchData> playoffMatches ){
         this.code = code;
         this.venue = venue;
         this.city = city;
         this.dayOfYearStart = dayOfYearStart;
         this.dayOfYearEnd = dayOfYearEnd;
         this.state = state;
+        this.qualMatches = qualMatches;
+        this.playoffMatches = playoffMatches;
     }
 
     public String getCity() {
         return city;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public String getVenue() {
-        return venue;
-    }
-
     public void setCity(String city) {
         this.city = city;
     }
 
+    public String getCode() {
+        return code;
+    }
+
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getVenue() {
+        return venue;
     }
 
     public void setVenue(String venue) {
@@ -69,4 +75,19 @@ public class Competition {
         this.state = s;
     }
 
+    public ArrayList<MatchData> getQualMatches() {
+        return qualMatches;
+    }
+
+    public void setQualMatches(ArrayList<MatchData> qualMatches) {
+        this.qualMatches = qualMatches;
+    }
+
+    public ArrayList<MatchData> getPlayoffMatches() {
+        return playoffMatches;
+    }
+
+    public void setPlayoffMatches(ArrayList<MatchData> playoffMatches) {
+        this.playoffMatches = playoffMatches;
+    }
 }

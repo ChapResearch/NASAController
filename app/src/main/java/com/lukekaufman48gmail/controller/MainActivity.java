@@ -1,24 +1,34 @@
 package com.lukekaufman48gmail.controller;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.os.PowerManager;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.CycleInterpolator;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.CompoundButton;
 import android.widget.ListAdapter;
 import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
+import android.widget.Switch;
 import android.widget.TableRow;
 import android.view.View;
 import android.widget.TextView;
@@ -28,6 +38,7 @@ import android.widget.Toast;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.FragmentManager;
+import android.widget.ToggleButton;
 
 
 import org.json.JSONArray;
@@ -36,6 +47,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.w3c.dom.Text;
 
@@ -59,33 +71,40 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public String NASA_controllerName() {
-
-            return (ConfigFragment.configContents[0].toString().trim());
+            final Globals globals = (Globals)getApplicationContext();
+            return (globals.getConfigData().getName().toString().trim());
         }
 
 
         @Override
         public String NASA_year() {
-
-            return (ConfigFragment.configContents[1].toString().trim());
+            final Globals globals = (Globals)getApplicationContext();
+            return (globals.getConfigData().getYear().toString().trim());
         }
 
         @Override
         public String NASA_competition() {
-
-            return (ConfigFragment.configContents[2].toString().trim());
+            final Globals globals = (Globals)getApplicationContext();
+            return (globals.getConfigData().getCompetition().toString().trim());
         }
 
         @Override
         public String NASA_password() {
-
-            return (ConfigFragment.configContents[3].toString().trim());
+            final Globals globals = (Globals)getApplicationContext();
+            return (globals.getConfigData().getPassword().toString().trim());
         }
 
         @Override
         public String NASA_match() {
+            Globals globals = (Globals) getApplicationContext();
             TextView matchNum = findViewById(R.id.matchNum_field);
-            return (matchNum.getText().toString());
+            int matchNumb = Integer.parseInt(matchNum.getText().toString());
+            if(globals.isMatchType()) {
+                return (matchNumb + globals.getSelectedCompetition().getQualMatches().size() + "");
+            }
+            else{
+                return matchNum.getText().toString().trim();
+            }
         }
 
         @Override
@@ -95,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
             TextView TN = null;
             RadioButton DS = null;
             ImageView C = null;
+            Globals globals = (Globals) getApplicationContext();
 
             switch (slot) {
                 case 0:
@@ -142,12 +162,14 @@ public class MainActivity extends AppCompatActivity {
             }
             if (claimed) {
                 indicator.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.claimedborder));
+                //globals.getMainFragmentData().setConnectionStatus(slot, true);
             } else {
                 indicator.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.border));
                 CN.setText(" No Name ");
                 TN.setText("#####");
                 DS.setActivated(false);
                 C.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.colorborder));
+                globals.getMainFragmentData().setConnectionStatus(slot, false);
             }
         }
 
@@ -179,13 +201,15 @@ public class MainActivity extends AppCompatActivity {
 
             switch (givenColor) {
                 case 1:
-                    teamColor.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.blue_tint));
+                    teamColor.setBackgroundColor(Color.BLUE);
+                    Log.v(TAG, "Setting contributor color to BLUE");
                     break;
                 case 2:
-                    teamColor.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.red_tint));
+                    teamColor.setBackgroundColor(Color.RED);
+                    Log.v(TAG, "Setting contributor color to RED");
                     break;
                 default:
-                    teamColor.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.colorborder));
+                    teamColor.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.transparent));
                     break;
             }
 
@@ -284,18 +308,25 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
+
+
     public MainFragment mainFragment = new MainFragment();
     public ConfigFragment configFragment = new ConfigFragment(bleCallbacks);
     public CompetitionFragment competitionFragment = new CompetitionFragment(configFragment);
+    public Activity mainActivity = this;
     public String conF = "conF";
     public String mainF = "mainF";
     public String compF = "compF";
     private String TAG = "LUKER";
     public String currentFragment;
-    public boolean toastCanceled = false;
-    public boolean toastUploaded = false;
+    public Competition selectedCompetition;
+    public final boolean UP = true;
+    public final boolean DOWN = false;
     public int matchTimeMilli = 150 * 1000; // default 2.5 min
     public CountDownTimer animationCountdown;
+    public CountDownTimer matchUpdateCoolDownCountdown;
+    public CountDownTimer startButtonCoolDownCountdown;
+    public boolean matchUpdateCooledDown = true;
     public TextView MT; //match time display on Main Activity
     public boolean timerOff; // checks if timer is Off
 
@@ -303,14 +334,30 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        final Globals globals = (Globals)getApplicationContext();
+
+        globals.setBleCallbacks(bleCallbacks);
+
         setContentView(R.layout.activity_main);
         MT = findViewById(R.id.matchTime);
         loadFragment(configFragment);
+
+
         Log.v("LUKER", "On create for MainActivity");
 
-        ble = new NASA_BLE(this,bleCallbacks);
-        ble.startServer();
+        ble = new NASA_BLE(this, bleCallbacks);
 
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBluetoothAdapter == null) {
+            Toast.makeText(getApplicationContext(), "Device does not support bluetooth", Toast.LENGTH_LONG).show();
+        } else {
+            if (mBluetoothAdapter.isEnabled()) {
+                ble.startServer();
+            } else {
+                Toast.makeText(getApplicationContext(), "Check if bluetooth is enabled.", Toast.LENGTH_LONG).show();
+            }
+        }
 
         //Buttons to load different fragments
         final Button config_button = findViewById(R.id.config_button);
@@ -328,12 +375,25 @@ public class MainActivity extends AppCompatActivity {
                 if (ConfigFragment.matchTimeSec > 1 && ConfigFragment.matchTimeSec < 999)
                     matchTimeMilli = ConfigFragment.matchTimeSec * 1000;
                 else {
-                    makeToast("Check match time on Config Screen", Toast.LENGTH_LONG);
+                    makeTextToast("Check match time on Config Screen", Toast.LENGTH_LONG);
                 }
 
-                if(timerOff)
-                MT.setText(" " + matchTimeMilli / 1000 + " sec");
+                if (timerOff)
+                    MT.setText(" " + ((matchTimeMilli) / 1000) + " sec");
+
+                //check if competition field is empty - if not - then assign selectedCompetition
+                String compCode = globals.getConfigData().getCompetition();
+
+                if(compCode!=null && !compCode.equals("")){
+                    selectedCompetition = globals.getSelectedCompetition();
+                    selectedCompetition.setCode(compCode);
+                }
+                /*if (competitionFragment.getSelectedCompetitionCode().equals("")) {
+                    selectedCompetition = competitionFragment.getSelectedCompetition();
+                    matchList = selectedCompetition.getMatches();
+                }*/
                 loadFragment(mainFragment);
+                Log.v(TAG, "current fragment (supposed to be Main): " + currentFragment);
             }
         });
 
@@ -341,58 +401,100 @@ public class MainActivity extends AppCompatActivity {
         final Button subtract_button = findViewById(R.id.subtract_button);
         final Button add_button = findViewById(R.id.add_button);
         final TextView matchNum_field = findViewById(R.id.matchNum_field);
-        matchNum_field.setText("1");
+        matchNum_field.setText("0");
 
-        matchNum_field.addTextChangedListener(new TextWatcher() {
-
+        matchNum_field.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void afterTextChanged(Editable s) {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                switch (actionId){
+                    case EditorInfo.IME_ACTION_DONE:
+                    case EditorInfo.IME_ACTION_NEXT:
+                    case EditorInfo.IME_ACTION_PREVIOUS:
+                        if(globals.isUploaded()){
+                            updateMatch();
+                            hideKeyboard(mainActivity);
+                            globals.setUploaded(false);
+                        }
+                        else{
+                            showMatchUpdateConfirmation(2);
+                        }
 
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
-                ble.resetContributors();
-                ble.matchUpdateContributors();
-		dataStatusClear();
+                        return true;
+                }
+                return false;
             }
         });
 
-        subtract_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (!matchNum_field.getText().toString().equals("")) {
-                    int num = Integer.parseInt(matchNum_field.getText().toString());
-                    if (num > 1) {
-                        num--;
-                        matchNum_field.setText("" + num);
-                        ble.resetContributors();
-                        ble.matchUpdateContributors();
-			dataStatusClear();
+
+
+            subtract_button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    int currentMatch = Integer.parseInt(matchNum_field.getText().toString());
+                    if(!(globals.getSelectedCompetition().getCode()==null) || !globals.getSelectedCompetition().getCode().equals("")){
+                        if(currentMatch>1) {
+                            if (matchUpdateCooledDown) {
+                                if (globals.isUploaded()) {
+                                    matchUpdateCooledDown = false;
+                                    matchNum_field.setText(currentMatch - 1 + "");
+                                    updateMatch();
+                                    matchUpdateCoolDownTimer(5000);
+                                    globals.setUploaded(false);
+                                } else {
+                                    showMatchUpdateConfirmation(0);
+                                }
+                            }
+                        }
+                        else{
+                            makeTextToast("Please select a competition from the list.", Toast.LENGTH_LONG);
+                        }
+                    }
+
+                }
+            });
+
+            add_button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    int currentMatch = Integer.parseInt(matchNum_field.getText().toString());
+                    if(!(globals.getSelectedCompetition().getCode()==null) || !globals.getSelectedCompetition().getCode().equals(""))
+                        if(matchUpdateCooledDown && globals.isUploaded()){
+                            matchUpdateCooledDown = false;
+                            matchNum_field.setText(currentMatch + 1 + "");
+                            updateMatch();
+                            matchUpdateCoolDownTimer(5000);
+                            globals.setUploaded(false);
+                        }
+                        else{
+                            showMatchUpdateConfirmation(1);
+                        }
+                    else{
+                        makeTextToast("Please select a competition from the list", Toast.LENGTH_LONG);
                     }
                 }
-            }
-        });
+            });
 
-        add_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (matchNum_field.getText().toString().equals("")) {
-                    matchNum_field.setText("" + 1);
+
+        // Match Number Counter ^^^
+
+        //qual/playoff button
+        final ToggleButton matchTypeToggle = findViewById(R.id.matchTypeToggle);
+        matchTypeToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    matchNum_field.setText("0");
+                    globals.setMatchType(true);
+                    globals.getSelectedCompetition().setPlayoffMatches(globals.getFms().readMatchJSON(getBaseContext() ,globals.getSelectedCompetition().getCode(), "playoff"));
+                    Log.v(TAG, "Match Type (True, playoffs): " + globals.isMatchType());
                 } else {
-                    int num = Integer.parseInt(matchNum_field.getText().toString()) + 1;
-                    matchNum_field.setText("" + num);
+                    matchNum_field.setText("0");
+                    globals.setMatchType(false);
+                    globals.getSelectedCompetition().setQualMatches(globals.getFms().readMatchJSON(getBaseContext() ,globals.getSelectedCompetition().getCode(), "qual"));
+                    Log.v(TAG, "Match Type (false, quals): " + globals.isMatchType());
+
                 }
-                ble.resetContributors();
-                ble.matchUpdateContributors();
-		dataStatusClear();
             }
         });
-        // Match Number Counter ^^^
 
         //upload button
         final Button uploadButton = findViewById(R.id.upload_button);
@@ -406,28 +508,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //start button
         final Button startButton = findViewById(R.id.start_button);
+        startButton.setEnabled(true); //have the start button be enabled on launch
+
+        final Button stopButton = findViewById(R.id.stop_button);
+        stopButton.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.greyed_out));
+
+
+        stopButton.setEnabled(false);
+
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //start button animations
                 shakeAnim(startButton);
-                timerAnimation(startButton, matchTimeMilli);
+                timerAnimationAndStartButtonCoolDown(startButton, matchTimeMilli, stopButton);
                 //start timer
                 ble.startContributors();
-                makeToast("Timer Started", Toast.LENGTH_LONG);
+                makeTextToast("Timer Started", Toast.LENGTH_LONG);
             }
         });
 
-        //stop button
-        final Button stopButton = findViewById(R.id.stop_button);
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 shakeAnim(stopButton);
                 ble.stopContributors();
                 if (!(animationCountdown == null)) {
+                    Log.v(TAG, "IS animationCountdown null? if im seeing this then no.");
                     animationCountdown.onFinish();
                     animationCountdown.cancel();
                 }
@@ -468,10 +576,11 @@ public class MainActivity extends AppCompatActivity {
         b.startAnimation(shake);
     }
 
-    public void timerAnimation(Button b, final int matchTimeMilli){
+    public void timerAnimationAndStartButtonCoolDown(Button startBtn, final int matchTimeMilli, Button stopBtn){
         //make text green
-        final Button button=b;
-        button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.brightgreen));
+        final Button startButton = startBtn;
+        final Button stopButton = stopBtn;
+        startButton.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.brightgreen));
 
         //fade in and out animation
         final Animation fade = AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade);
@@ -479,38 +588,200 @@ public class MainActivity extends AppCompatActivity {
         //
         timerOff = false;
 
+        stopButton.setEnabled(true); //enable stop button when timer is going
+        stopButton.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
+        startButton.setEnabled(false);
+
         //timer set for however long it is set in config page (match length) and checks every second
         animationCountdown = new CountDownTimer(matchTimeMilli, 1000) {
-            int i=1;
-
+            int i=0;
             public void onTick(long millisUntilFinished) {
-                button.startAnimation(fade);
-                MT.setText(" " + (matchTimeMilli/1000 - i) + " sec"); //makes MT display countdown with timer
+                startButton.setAnimation(fade);
+                MT.setText((matchTimeMilli/1000)-i + " sec");
                 i++;
             }
 
             public void onFinish() {
                 timerOff = true;
                 ble.stopContributors();
-                makeToast("Timer Stopped", Toast.LENGTH_LONG);
-                button.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
+                stopButton.setEnabled(false);
+                stopButton.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.greyed_out));
+                startButton.setEnabled(true);
+                startButton.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
+                makeTextToast("Timer Stopped", Toast.LENGTH_LONG);
                 MT.setText(" " +(matchTimeMilli/1000) + " sec"); //resets MT display
             }
         }.start();
     }
 
-    public void playBruh(){
-         MediaPlayer ring= MediaPlayer.create(MainActivity.this,R.raw.bruh);
-         ring.start();
+    public void matchUpdateCoolDownTimer(int matchUpdateCoolDownTimeMilli){
+        matchUpdateCoolDownCountdown = new CountDownTimer(matchUpdateCoolDownTimeMilli, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                makeTextToast("Wait: " + millisUntilFinished/1000, Toast.LENGTH_SHORT);
+            }
+
+            public void onFinish() {
+                matchUpdateCooledDown=true;
+                makeTextToast("You can update the match now.", Toast.LENGTH_SHORT);
+            }
+        }.start();
     }
 
-    public void makeToast(String message, int duration){
+
+
+    public void playBruh(){
+         MediaPlayer ring= MediaPlayer.create(MainActivity.this,R.raw.bruh);
+            ring.start();
+    }
+
+    public void makeTextToast(String message, int duration){
         Toast toast = Toast.makeText(getApplicationContext(),
                 message,
                 duration);
 
         toast.show();
     }
+
+
+    public void updateMatch(){
+        final Globals globals = (Globals)getApplicationContext();
+
+        final TextView matchNum_field = findViewById(R.id.matchNum_field);
+
+        if (globals.getConfigData().getCompetition()!= null && !globals.getConfigData().getCompetition().equals("")) {
+            ble.resetContributors();
+            ble.matchUpdateContributors();
+            ArrayList<MatchData> matchList;
+            MatchData currentMatch = null;
+
+            if(globals.isMatchType()){
+                matchList = globals.getSelectedCompetition().getPlayoffMatches();
+            }
+            else{
+                matchList = globals.getSelectedCompetition().getQualMatches();
+            }
+
+            if(matchList != null || matchList.size()!=0) {
+                for (int x = 0; x < matchList.size(); x++) {
+                    if (matchList.get(x).getMatchNumber().equals(matchNum_field.getText().toString())) {
+                        currentMatch = matchList.get(x);
+                        Log.v(TAG, "Number in field: " + matchNum_field.getText().toString() + " | " + "Match Number selected: " + matchList.get(x).getMatchNumber());
+                    }
+                }
+            }
+            else{
+                Log.v(TAG, "Matches haven't been scraped yet");
+                makeTextToast("Matches haven't been scraped yet OR match list empty", Toast.LENGTH_LONG);
+            }
+
+            ArrayList<TeamMatchData> blueTeams = currentMatch.getBlueTeams();
+            ArrayList<TeamMatchData> redTeams = currentMatch.getRedTeams();
+
+            Log.v(TAG, "Number of blue teams: " + blueTeams.size());
+            Log.v(TAG, "Number of red teams: " + redTeams.size());
+
+            //Blue teams will sends to slots 0,1,2 | Red teams will send to slots 3,4,5
+            //send blue teams
+            for (int i = 0; i < 3; i++) {
+
+                Map<String, String> blueTeamMap = new HashMap<>();
+                if (blueTeams.size() == 3) {
+                    blueTeamMap.put("teamNumber", blueTeams.get(i).getTeamNumber());
+                    blueTeamMap.put("teamColor", blueTeams.get(i).getTeamColor().toLowerCase());
+                    blueTeamMap.put("defTeam1", blueTeams.get(i).getDefTeam1());
+                    blueTeamMap.put("defTeam2", blueTeams.get(i).getDefTeam2());
+                    blueTeamMap.put("defTeam3", blueTeams.get(i).getDefTeam3());
+                } else {
+                    Log.v(TAG, "Pulled wrong number of teams, pulled: " + blueTeams.size() + " teams");
+                }
+
+                ble.dataPushContributor(i, blueTeamMap);
+                Log.v(TAG, "Blue: " + blueTeamMap);
+            }
+
+            //send red teams
+            for (int i = 3; i < 6; i++) {
+
+                Map<String, String> redTeamMap = new HashMap<>();
+                if (redTeams.size() == 3) {
+                    redTeamMap.put("teamNumber", redTeams.get(i - 3).getTeamNumber());
+                    redTeamMap.put("teamColor", redTeams.get(i - 3).getTeamColor().toLowerCase());
+                    redTeamMap.put("defTeam1", redTeams.get(i - 3).getDefTeam1());
+                    redTeamMap.put("defTeam2", redTeams.get(i - 3).getDefTeam2());
+                    redTeamMap.put("defTeam3", redTeams.get(i - 3).getDefTeam3());
+                } else {
+                    Log.v(TAG, "Pulled wrong number of teams, pulled: " + redTeams.size() + " teams");
+                }
+
+                ble.dataPushContributor(i, redTeamMap);
+                Log.v(TAG, "RED: " + redTeamMap);
+            }
+            dataStatusClear();
+        } else {
+            Log.v(TAG, "NO SELECTED COMPETITION");
+            makeTextToast("No selected Competition", Toast.LENGTH_LONG);
+        }
+    }
+
+
+    public void showMatchUpdateConfirmation(int state) {
+
+        if (currentFragment == mainF) {
+            //state = 0 - down 1 match\
+            //state = 1 - up 1 match
+            //state = 2 - match num change
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Are you sure you want to update match?");
+
+            builder.setMessage("There might be un-uploaded data."); // should be warning variable
+            builder.setCancelable(false);
+
+            final Globals globals = (Globals)getApplicationContext();
+            final int direction = state;// finalization required for use in builder
+
+            builder.setPositiveButton("Update Match", new DialogInterface.OnClickListener() {
+
+                final TextView matchNum_field = findViewById(R.id.matchNum_field);
+
+                int currentMatch = Integer.parseInt(matchNum_field.getText().toString());
+                @Override
+                public void onClick(DialogInterface dialog, int which){
+                        matchUpdateCooledDown = false;
+                        matchUpdateCoolDownTimer(5000);
+                        switch(direction){
+                            case 0:
+                                matchNum_field.setText(currentMatch - 1 + "");
+                                updateMatch();
+                                break;
+                            case 1:
+                                matchNum_field.setText(currentMatch + 1 + "");
+                                updateMatch();
+                                break;
+                            case 2:
+                                updateMatch();
+                                hideKeyboard(mainActivity);
+                                break;
+                        }
+
+                }
+            });
+
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    makeTextToast("Match update Canceled", Toast.LENGTH_SHORT);
+                }
+            });
+
+            builder.show();
+
+        }
+        else{
+            makeTextToast("Please leave the Config Page.", Toast.LENGTH_SHORT);
+        }
+    }
+
 
     public void showUploadConfirmation() {
 
@@ -523,49 +794,60 @@ public class MainActivity extends AppCompatActivity {
             String warning = "These Scouters have not sent in data: ";
             String append = "";
 
-	    for(int i=0; i < dataStatus.length; i++) {
-		if(!dataStatus[i]) {
-		    if(append.length()>0) { append += ", "; }
-		    switch(i) {
-		    case 0: append += "A"; break;
-		    case 1: append += "B"; break;
-		    case 2: append += "C"; break;
-		    case 3: append += "D"; break;
-		    case 4: append += "E"; break;
-		    case 5: append += "F"; break;
-		    }
-		}
-	    }
+            for(int i=0; i < dataStatus.length; i++) {
+                if(!dataStatus[i]) {
+                    if(append.length()>0) { append += ", "; }
+                    switch(i) {
+                        case 0: append += "A"; break;
+                        case 1: append += "B"; break;
+                        case 2: append += "C"; break;
+                        case 3: append += "D"; break;
+                        case 4: append += "E"; break;
+                        case 5: append += "F"; break;
+                    }
+                }
+            }
 
             Log.v("LUKER", append);
             warning = warning + append;
+
+
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Are you sure you want to upload?");
-
 
             builder.setMessage(warning); // should be warning variable
             builder.setCancelable(false);
 
+            final Globals globals = (Globals)getApplicationContext();
 
             builder.setPositiveButton("Upload", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which){
                     //check for empty config fields
                     boolean configCompleted = true;
-                    for(CharSequence content: ConfigFragment.configContents){
-                        if(content.toString().equals("")){
-                            configCompleted = false;
-                        }
-                    }
-                    //allow upload only if all fields are filled
+                    if(globals.getConfigData().getCompetition() == null ||
+                            globals.getConfigData().getCompetition().equals("") ||
+                            globals.getConfigData().getPassword() == null ||
+                            globals.getConfigData().getPassword().equals("") ||
+                            globals.getConfigData().getYear() == null||
+                            globals.getConfigData().getYear().equals("") ||
+                            globals.getConfigData().getName() == null ||
+                            globals.getConfigData().getName().equals("") ||
+                            globals.getConfigData().getMatchTime() == null ||
+                            globals.getConfigData().getMatchTime().equals("")
 
-                    
+                    ){
+                        configCompleted=false;
+                    }
+
+                    //allow upload only if all fields are filled
                     if(configCompleted){
                         ble.transmitContributors();
-                        makeToast("Data Uploaded", Toast.LENGTH_SHORT);
+                        globals.setUploaded((true));
+                        makeTextToast("Data Uploaded", Toast.LENGTH_SHORT);
                     }
                     else
-                        makeToast("Check Config page for empty field", Toast.LENGTH_LONG);
+                        makeTextToast("Check Config page for empty field", Toast.LENGTH_LONG);
 
                 }
             });
@@ -573,24 +855,27 @@ public class MainActivity extends AppCompatActivity {
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    makeToast("Data Upload Canceled", Toast.LENGTH_SHORT);
+                    makeTextToast("Data Upload Canceled", Toast.LENGTH_SHORT);
                 }
             });
 
             builder.show();
 
         }
+        else{
+            makeTextToast("Please leave the Config page.", Toast.LENGTH_LONG);
+        }
     }
 
-    public Fragment getConfigFragment(){
-        return configFragment;
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    public Fragment getMainFragment(){
-        return mainFragment;
-    }
-
-    public Fragment getCompetitionFragment(){
-        return competitionFragment;
-    }
 }

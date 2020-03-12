@@ -1,4 +1,5 @@
 package com.lukekaufman48gmail.controller;
+
 import android.util.Log;
 
 //
@@ -51,8 +52,7 @@ public class NASA_Contributor {
 	teamNumber = null;
 	userName = null;
 	color = 0;
-	data = new String();		// need an empty string to start
-	hasData = false;
+	this.clearData();
     }
 
     public static int lookup(NASA_Contributor[] contributors, BluetoothDevice target)
@@ -179,5 +179,11 @@ public class NASA_Contributor {
 	    nasaDB.send(slot,year,teamNumber,competition,match,data);
 	}
     }
+
+	public void clearData()
+	{
+		hasData = false;
+		data = "";
+	}
     
 }

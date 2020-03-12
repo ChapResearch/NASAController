@@ -43,7 +43,7 @@ public interface NASA_BLE_Interface {
     String NASA_password();
 
     //
-    // NASA_match() - called by the controller to get the current match number. This number is
+    // () - called by the controller to get the current match number. This number is
     //                read by Contributors, plus the characteristic is the one that Contributors
     //                listen for notifications. When they get a notification on the match, they
     //                reset and prepare for the next match.
@@ -104,5 +104,5 @@ public interface NASA_BLE_Interface {
     //                           Status is simple, true = success.
     //
     void NASA_dataUploadStatus(int slot, boolean success);
-    
+
 }

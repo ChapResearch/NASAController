@@ -1,17 +1,18 @@
 package com.lukekaufman48gmail.controller;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.Bitmap;
 import android.nfc.Tag;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -19,10 +20,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class CompetitionFragment extends Fragment {
 
@@ -31,7 +34,9 @@ public class CompetitionFragment extends Fragment {
     private RecyclerView recyclerView;
     private CompetitionsAdapter cAdapter;
     private ConfigFragment revertToFragment;
-    private String selectedCompetition = "";
+    public Activity mainActivity = getActivity();
+    public Competition selectedCompetition = new Competition("","","",0,0,0,null, null);
+    private String selectedCompetitionCode = "";
 
 
     public CompetitionFragment(ConfigFragment rTF) {
@@ -44,11 +49,12 @@ public class CompetitionFragment extends Fragment {
         View view = inflater.inflate(R.layout.competition_fragment, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.competition_list);
 
+        final Globals globals = (Globals) getActivity().getApplicationContext();
 
-        fms = new FMSInterface();
-        fms.readJSON(getContext());
-        cAdapter = new CompetitionsAdapter(fms.getCompetitionList(), getContext());
 
+        globals.getFms().readCompetitionJSON(getContext());
+
+        cAdapter = new CompetitionsAdapter(globals.getFms().getCompetitionList(), getContext());
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -56,16 +62,26 @@ public class CompetitionFragment extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(cAdapter);
 
-
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Competition competition = fms.getCompetitionList().get(position);
-                selectedCompetition = competition.getCode();
-              //revertToFragment.makeToast(competition.getVenue() + " competition in " + competition.getCity()+ " was selected", Toast.LENGTH_LONG);
+                Competition competition = globals.getFms().getCompetitionList().get(position);
+
+                selectedCompetitionCode = competition.getCode();
+                ArrayList<MatchData> qualMatchList = globals.getFms().readMatchJSON(getContext(), selectedCompetitionCode, "qual");
+
+                if(qualMatchList.size()>5) {
+                    globals.setSelectedCompetition(competition);
+                    globals.getSelectedCompetition().setQualMatches(qualMatchList);
+                }
+                else{
+                   makeTextToast("This Competition does not have qual matches set", Toast.LENGTH_LONG);
+                   selectedCompetitionCode = "";
+                }
+
+                //revertToFragment.makeToast(competition.getVenue() + " competition in " + competition.getCity()+ " was selected", Toast.LENGTH_LONG);
                 loadFragment(revertToFragment);
-                //
-                //
+
             }
 
             @Override
@@ -89,7 +105,19 @@ public class CompetitionFragment extends Fragment {
 
     }
 
-    public String getSelectedCompetition() {
-        return selectedCompetition;
+    public String getSelectedCompetitionCode() {
+        Log.v(TAG, "selectedCompetitionCode (in method): " + selectedCompetition);
+        return selectedCompetitionCode;
     }
+
+    public Competition getSelectedCompetition() { return selectedCompetition; }
+
+    public void makeTextToast(String message, int duration){
+        Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                message,
+                duration);
+
+        toast.show();
+    }
+
 }

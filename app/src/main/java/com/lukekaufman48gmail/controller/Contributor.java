@@ -4,8 +4,8 @@ import android.content.Context;
 import android.graphics.ColorFilter;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
-import android.support.v4.widget.ImageViewCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.widget.ImageViewCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RadioButton;
@@ -22,8 +22,6 @@ import org.w3c.dom.Text;
 import java.util.*;
 
 public class Contributor extends Activity {
-    public Activity activity;
-
     public Activity MainAct;
     public int idContributor, idTeamNumber, idColor, idDataStatus;
     public String TAG = "LUKER";

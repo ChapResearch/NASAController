@@ -26,35 +26,37 @@
 
         <Button
             android:id="@+id/main_button"
-            android:layout_width="58dp"
-            android:layout_height="28dp"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="75sp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="10sp"
             android:layout_marginRight="3sp"
-            android:background="#007777ff"
+            android:background="@color/lighter_blue"
             android:elevation="0sp"
             android:fontFamily="sans-serif"
             android:text="MAIN"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="#ffffff"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
             android:textSize="20sp"
             android:textStyle="bold"
             tools:fontFamily="sans-serif" />
 
         <Button
             android:id="@+id/config_button"
-            android:layout_width="77dp"
-            android:layout_height="30dp"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="75sp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="3sp"
             android:layout_marginRight="10sp"
-            android:background="#007777ff"
+            android:background="@color/lighter_blue"
             android:fontFamily="sans-serif"
             android:text="CONFIG"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="#ffffff"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
             android:textSize="20sp"
             android:textStyle="bold"
             tools:fontFamily="sans-serif" />
@@ -77,11 +79,12 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:background="@null"
-            android:cursorVisible="false"
+            android:cursorVisible="true"
             android:ems="10"
             android:fontFamily="@font/lato_regular"
             android:hint="Match"
             android:inputType="number"
+            android:maxLength="3"
             android:textAlignment="center"
             android:textColor="#ffffff"
             android:textColorHint="#ffffff"
@@ -106,15 +109,16 @@
             app:layout_constraintStart_toEndOf="@+id/matchNum_field"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/frc_logo"
-            android:layout_width="50sp"
-            android:layout_height="50sp"
-            android:layout_gravity="center"
+        <ToggleButton
+            android:id="@+id/matchTypeToggle"
+            android:layout_width="70sp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="5sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/frc_logo" />
+            android:layout_marginRight="5sp"
+            android:text="ToggleButton"
+            android:textOff="QUAL"
+            android:textOn="PLAYOFF" />
+
     </TableRow>
 
 
@@ -128,7 +132,7 @@
         <Button
             android:id="@+id/upload_button"
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10sp"
             android:layout_marginTop="0sp"
@@ -138,7 +142,7 @@
             android:padding="0sp"
             android:text="UPLOAD"
             android:textAlignment="center"
-            android:textColor="@color/light_red"
+            android:textColor="#E95C5C"
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="sans"
@@ -158,9 +162,10 @@
 
         <TextView
             android:id="@+id/matchTime"
-            android:layout_width="wrap_content"
+            android:layout_width="70sp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginRight="8sp"
             android:text=" 150 sec"
             android:textAlignment="center"
             android:textColor="@color/background_gray"
@@ -169,8 +174,8 @@
 
         <Button
             android:id="@+id/start_button"
-            android:layout_width="wrap_content"
-            android:layout_height="36sp"
+            android:layout_width="75sp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:background="#007777ff"
             android:fontFamily="sans-serif"
@@ -189,13 +194,13 @@
 
         <Button
             android:id="@+id/stop_button"
-            android:layout_width="wrap_content"
-            android:layout_height="36sp"
+            android:layout_width="75sp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="0sp"
             android:layout_marginLeft="6sp"
-            android:layout_marginRight="8sp"
             android:layout_marginTop="0sp"
+            android:layout_marginRight="8sp"
             android:background="#007777ff"
             android:fontFamily="sans-serif"
             android:gravity="center_vertical"
@@ -208,6 +213,16 @@
             android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/reset_button" />
+
+        <ImageView
+            android:id="@+id/frc_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/frc_logo" />
 
     </TableRow>
 

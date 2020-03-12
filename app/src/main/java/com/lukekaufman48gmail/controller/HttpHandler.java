@@ -66,7 +66,7 @@ public class HttpHandler {
             }
             response = stringBuilder.toString();
         } catch (Exception e) {
-            Log.e("LUKER", "Exceptional: " + e.getMessage());
+            Log.e("LUKER", "Exception: " + e.getMessage());
         }
         Log.v("LUKER", "Before return response");
         return response;

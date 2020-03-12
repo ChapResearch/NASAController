@@ -9,8 +9,8 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.tabs.TabLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.text.Editable;
@@ -22,7 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.widget.TextView;
 import android.widget.Button;
 
@@ -57,16 +57,19 @@ public class ConfigFragment extends Fragment {
     private Button complistButton;
     private TextView password;
     private TextView matchTimeField;
+    private Button fmsRefresh;
     private Button testButton;
     public static int matchTimeSec;
     public static CharSequence[] configContents;
     public CompetitionFragment CompetitionFragment = new CompetitionFragment(this);
     public String currentComp;
 
+
     //public static MainFragment mainFragment = MainActivity.mainFragment;
 
     public ConfigFragment(NASA_BLE_Interface i){
         ble_int = i;
+
     }
 
 
@@ -81,9 +84,23 @@ public class ConfigFragment extends Fragment {
         year = view.findViewById(R.id.year_field);
         controllerName = view.findViewById(R.id.controllerName_field);
         matchTimeField = view.findViewById(R.id.matchtime_field);
+        fmsRefresh = view.findViewById(R.id.fmsRefreshButton);
+
         Log.v("LUKER", "onCreateView for Config Fragment");
 
+        final Globals globals = (Globals) getActivity().getApplicationContext();
 
+        fms = new FMSInterface(getActivity());
+        globals.setFms(fms);
+
+        ConfigData configData = new ConfigData();
+        globals.setConfigData(configData);
+
+        controllerName.setText(globals.getConfigData().getName());
+        year.setText(globals.getConfigData().getYear());
+        competition.setText(globals.getConfigData().getCompetition());
+        password.setText(globals.getConfigData().getCompetition());
+        matchTimeField.setText(globals.getConfigData().getMatchTime());
 
         matchTimeField.setText("150");
         matchTimeField.addTextChangedListener(new TextWatcher() {
@@ -101,12 +118,109 @@ public class ConfigFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                if(!matchTimeField.getText().toString().trim().equals(""))
+                if(!matchTimeField.getText().toString().trim().equals("")) {
                     matchTimeSec = Integer.parseInt(matchTimeField.getText().toString().trim());
-                else
+                    globals.getConfigData().setMatchTime(matchTimeField.getText().toString());
+                }
+                else {
                     matchTimeSec = 0;
+                }
             }
         });
+
+        fmsRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(globals.getSelectedCompetition() == null || globals.getSelectedCompetition().getQualMatches().size()<5 ) {
+                    if(globals.isMatchType())
+                        globals.getSelectedCompetition().setPlayoffMatches(globals.getFms().readMatchJSON(getActivity().getApplicationContext(), globals.getSelectedCompetition().getCode(), "playoff"));
+                    else
+                        globals.getSelectedCompetition().setQualMatches(globals.getFms().readMatchJSON(getActivity().getApplicationContext(), globals.getSelectedCompetition().getCode(), "qual"));
+                }
+            }
+        });
+
+
+        controllerName.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                globals.getConfigData().setName(controllerName.getText().toString());
+            }
+        });
+
+
+        password.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                globals.getConfigData().setPassword(password.getText().toString());
+            }
+        });
+
+
+        year.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                globals.getConfigData().setYear(year.getText().toString());
+            }
+        });
+
+
+        competition.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                globals.getConfigData().setCompetition(competition.getText().toString());
+            }
+        });
+
+
 
         complistButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,34 +228,26 @@ public class ConfigFragment extends Fragment {
                 if(haveNetworkConnection(getContext())){
                     loadFragment(CompetitionFragment);
                     Log.v(TAG, "Competition Fragment Loaded");
-                }else{
-                    Toast.makeText(getContext(),"Check Internet Connection", Toast.LENGTH_LONG);
+                } else{
+                    Toast.makeText(getContext(),"Check Internet Connection", Toast.LENGTH_LONG).show();
                 }
 
             }
         });
 
-        if(savedInstanceState != null && savedState == null) {
-            savedState = savedInstanceState.getBundle(BUNDLE_KEY_MAP_STATE);
 
-        }
-        if(savedState != null) {
-            controllerName.setText(savedState.getCharSequence(CONTROLLERNAME_KEY_MAP_STATE));
-            year.setText(savedState.getCharSequence(YEAR_KEY_MAP_STATE));
-            if(CompetitionFragment.getSelectedCompetition().equals("")) {
-                competition.setText(savedState.getCharSequence(COMPETITION_KEY_MAP_STATE));
-            }
-            else {
-                Log.v(TAG, CompetitionFragment.getSelectedCompetition());
-                competition.setText(CompetitionFragment.getSelectedCompetition());
-                Log.v(TAG, competition.getText().toString());
-            }
-            password.setText(savedState.getCharSequence(PASSWORD_KEY_MAP_STATE));
-            matchTimeField.setText(Integer.toString(savedState.getInt(MATCHTIME_KEY_MAP_STATE)));
-        }
-        savedState = null;
         return view;
 
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        if(!CompetitionFragment.getSelectedCompetitionCode().equals("")) {
+            competition.setText(CompetitionFragment.getSelectedCompetitionCode());
+        }
     }
 
     @Override
@@ -155,39 +261,10 @@ public class ConfigFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        savedState = saveState();
-        controllerName = null;
-        year = null;
-        competition = null;
-        password = null;
-    }
 
-    private Bundle saveState() { /* called either from onDestroyView() or onSaveInstanceState() */
-        Bundle state = new Bundle();
-        state.putCharSequence(CONTROLLERNAME_KEY_MAP_STATE, controllerName.getText());
-        state.putCharSequence(YEAR_KEY_MAP_STATE, year.getText());
-        state.putCharSequence(COMPETITION_KEY_MAP_STATE, competition.getText());
-        state.putCharSequence(PASSWORD_KEY_MAP_STATE, password.getText());
-        if(!matchTimeField.getText().toString().trim().equals(""))
-        state.putInt(MATCHTIME_KEY_MAP_STATE, Integer.parseInt(matchTimeField.getText().toString().trim()));
 
-        configContents = new String[5];
 
-        configContents[0] = controllerName.getText().toString();
-        configContents[1] = year.getText().toString();
-        configContents[2] = competition.getText().toString();
-        configContents[3] = password.getText().toString();
-        configContents[4] = matchTimeField.getText().toString();
-        return state;
-    }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        /* If onDestroyView() is called first, we can use the previously savedState but we can't call saveState() anymore */
-        /* If onSaveInstanceState() is called first, we don't have savedState, so we need to call saveState() */
-        /* => (?:) operator inevitable! */
-        outState.putBundle(BUNDLE_KEY_MAP_STATE, (savedState != null) ? savedState : saveState());
     }
 
     private void loadFragment(Fragment fragment) {
@@ -201,19 +278,6 @@ public class ConfigFragment extends Fragment {
 
     }
 
-    public void setCompetition(String comp){
-        currentComp = comp;
-    }
-
-    public void makeToast(String message, int duration){
-        Toast.makeText(getContext(), message, duration);
-
-    }
-
-    public String getCompetition(){
-        return currentComp;
-    }
-
     private boolean haveNetworkConnection(Context context) {
         ConnectivityManager cm =
                 (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -223,6 +287,10 @@ public class ConfigFragment extends Fragment {
                 activeNetwork.isConnectedOrConnecting();
 
         return isConnected;
+    }
+
+    public String getSelectedCompetition(){
+        return currentComp;
     }
 
 }
